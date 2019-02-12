@@ -2,12 +2,10 @@
 let express = require("express");
 let bodyParser = require("body-parser");
 
-
 //===========================================
 //Mongoose
 let mongoose = require("mongoose");
 //===========================================
-
 
 //===========================================
 //connecting to the Mongo Db Server

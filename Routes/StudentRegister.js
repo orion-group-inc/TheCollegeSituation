@@ -4,10 +4,15 @@ let routes = express.Router();
 //============================================
 //Importing DB Model for Creating Students
 //============================================
-let Student = require("../Model/RegisterStudent");
+let Student = require("../Model/Students/RegisterStudent");
 
 routes.get("/registeredStudents", (req, res) => {
-  res.status(200).send("<h3>All Registered Students:</h3>");
+  Student.find().then(allRegisteredStudents => {
+    res.status(200).send({
+      success: true,
+      data: allRegisteredStudents
+    });
+  });
 });
 
 //The Students Register Endpoint
