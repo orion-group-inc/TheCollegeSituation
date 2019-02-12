@@ -30,7 +30,7 @@ let app = express();
 let indexRoute = require("./Routes/Index");
 
 //Students Register Route
-let studentRegisterRoute = require("./Routes/Students/Register");
+let studentRegisterRoute = require("./Routes/StudentRegister");
 
 //--------------------------------------
 //All Middlewares here
@@ -46,7 +46,7 @@ app.use("/api/secure2019/landing", indexRoute);
 
 //Other Endpoints
 //Students Register Endpoint
-app.use("/api/secure2019/students", studentRegisterRoute);
+app.use("/api/secure2019/student", studentRegisterRoute);
 
 //Spining the Server on 3000
 let PORT = process.env.PORT || 3000;
