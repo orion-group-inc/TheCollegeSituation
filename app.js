@@ -39,6 +39,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //All Routes here
 //--------------------------------------
 
+
+//default landing:
+app.get('/', (req, res)=>{
+  res.status(200).send(" <br/><h1>The College Situation API</h1> <small>Version 1.0</small>")
+})
+
 //Welcome Route
 app.use("/api/secure2019/landing", indexRoute);
 
