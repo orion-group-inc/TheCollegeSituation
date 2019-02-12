@@ -42,7 +42,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //default landing:
 app.get('/', (req, res)=>{
-  res.status(200).send(" <br/><h1>The College Situation API</h1> <small>Version 1.0</small>")
+  res.status(200).send(" <br/><h3>The College Situation API</h3> <small>Version 1.0</small>")
 })
 
 //Welcome Route
