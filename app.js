@@ -1,40 +1,24 @@
 //Require all that's needed to power this App
-let express = require("express");
-let bodyParser = require("body-parser");
+const express = require("express");
+const bodyParser = require("body-parser");
+const connection = require('./config/connection');
 
-//===========================================
-//Mongoose
-let mongoose = require("mongoose");
-//===========================================
-
-//===========================================
-//connecting to the Mongo Db Server
-//===========================================
-mongoose
-  .connect(
-    "mongodb://favourtheo:1A2b3c--@ds331145.mlab.com:31145/collegesituation",
-    { useNewUrlParser: true }
-  )
-  .then(() => {
-    console.log("Successfully connected to Mongo DB!");
-  })
-  .catch(err => {
-    console.log("Could not connect to MongoDB " + err.message);
-  });
-
-let app = express();
+const app = express();
 
 //Importing Routes
-let indexRoute = require("./Routes/Index");
+let indexRoute = require("./routes/Index");
 
 //Students Register Route
-let studentRegisterRoute = require("./Routes/StudentRegister");
+let studentRoute = require("./routes/Student");
 
 //--------------------------------------
 //All Middlewares here
 //--------------------------------------
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+
 //--------------------------------------
 //All Routes here
 //--------------------------------------
@@ -46,11 +30,11 @@ app.get('/', (req, res)=>{
 })
 
 //Welcome Route
-app.use("/api/secure2019/landing", indexRoute);
+app.use("/api/v1/secure2019/landing", indexRoute);
 
 //Other Endpoints
-//Students Register Endpoint
-app.use("/api/secure2019/student", studentRegisterRoute);
+//Students Endpoint
+app.use("/api/v1/secure2019/student", studentRoute);
 
 //Spining the Server on 3000
 let PORT = process.env.PORT || 3000;
