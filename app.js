@@ -6,10 +6,10 @@ const connection = require('./config/connection');
 const app = express();
 
 //Importing Routes
-let indexRoute = require("./routes/Index");
+let indexRoute = require("./Routes/Index");
 
 //Students Register Route
-let studentRoute = require("./routes/Student");
+let studentRoute = require("./Routes/Student");
 
 //--------------------------------------
 //All Middlewares here
