@@ -5,7 +5,8 @@
     "main": "app.js",
     "scripts": {
         "start": "node app.js",
-        "dev": "nodemon app.js"
+        "dev": "nodemon app.js",
+        "doc": "apidoc -e \"(node_modules|public)\" -o public/apidoc"
     },
     "keywords": [
         "College",
@@ -16,6 +17,7 @@
     "author": "Favour Ori",
     "license": "ISC",
     "dependencies": {
+        "apidoc": "^0.17.7",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.18.3",
         "cors": "^2.8.5",

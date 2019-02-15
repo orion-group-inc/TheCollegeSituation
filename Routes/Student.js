@@ -13,14 +13,12 @@ const StudentController = require('./../controllers/StudentController');
 const {registerStudent, loginStudent} = AuthController;
 const {getRegisteredStudents} = StudentController;
 
-// Get Registered users
+
 routes.get("/registeredStudents",getRegisteredStudents);
 
-//The Students Register Endpoint
 routes.post("/register", registerStudent);
 
-//The Students Register Endpoint
 routes.post("/login", loginStudent);
 
-//exporting  thr Student Resister Route
+
 module.exports = routes;
