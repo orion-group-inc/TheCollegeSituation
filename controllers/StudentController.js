@@ -1,9 +1,9 @@
-
+//Importing student Model
 const Student = require("./../models/Student");
 
 class StudentController{
     /**
-     * @api {get} /registeredStudents Get students information
+     * @api {get} /student/registeredStudents Get students information
      * @apiName GetStudents
      * @apiGroup Student
      */

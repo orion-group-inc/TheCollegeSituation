@@ -6,7 +6,7 @@ const Student = require("./../models/Student");
 class AuthController{
 
     /**
-     * @api {post} /register Register Student
+     * @api {post} /student/register Register Student
      * @apiName Register Student
      * @apiGroup Student
      * @apiParam {String} firstName students firstname
@@ -44,7 +44,7 @@ class AuthController{
     }
 
     /**
-     * @api {post} /login Login Student
+     * @api {post} /student/login Login Student
      * @apiName Login Student
      * @apiGroup Student
      * @apiParam {String} email student's email
