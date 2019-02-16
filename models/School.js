@@ -6,6 +6,6 @@ let SchoolSchema = mongoose.Schema({
     isActive: { type: Boolean, default: false }
 });
 
-let Student = mongoose.model("School", SschoolSchema);
+let School = mongoose.model("School", SchoolSchema);
 
 module.exports = School;
