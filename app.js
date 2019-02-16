@@ -30,11 +30,11 @@ app.get('/', (req, res)=>{
 })
 
 //Welcome Route
-app.use("/api/v1/secure2019/landing", indexRoute);
+app.use("/api/v1/landing", indexRoute);
 
 //Other Endpoints
 //Students Endpoint
-app.use("/api/v1/secure2019/student", studentRoute);
+app.use("/api/v1/student", studentRoute);
 
 //Spining the Server on 3000
 let PORT = process.env.PORT || 3000;
