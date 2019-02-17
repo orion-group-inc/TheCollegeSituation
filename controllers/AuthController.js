@@ -60,7 +60,7 @@ class AuthController{
                         let token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
                             expiresIn: 86400 // expires in 24 hours
                         });
-                        res.send({auth: true, token});
+                        res.send({auth: true, token, user });
                     }else{
                         res.status(401).send({auth: false, token: null});
                     } 
