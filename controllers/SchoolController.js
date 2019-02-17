@@ -17,6 +17,7 @@ class SchoolController {
    * @apiParam {String} address school address
    * @apiParam {String} state state where school is located
    * @apiParam {String} city city where school is located
+   * @apiParam {String} zip zip code of  where school is located
    * @apiParam {String} graduationRate graduation rate
    * @apiParam {String} acceptanceRate acceptance rate
    * @apiParam {String} generalPhone General admission Phone
@@ -51,6 +52,7 @@ class SchoolController {
       address: req.body.address,
       state: req.body.state,
       city: req.body.city,
+      zip: req.body.zip,
       graduationRate: req.body.graduationRate,
       acceptanceRate: req.body.acceptanceRate,
       generalPhone: req.body.generalPhone,
