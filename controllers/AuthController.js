@@ -14,6 +14,8 @@ class AuthController {
    * @apiParam {String} birthday student's birthday
    */
   static async registerStudent(req, res) {
+    //declaring variables
+    let email = req.body.email;
     //Create New Student (Work on the Mongo Db stuff here..)
     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
@@ -25,18 +27,20 @@ class AuthController {
       password: hashedPassword
     });
 
+    // let email = req.body.email;
     Student.findOne({ email })
       .then(user => {
-        if (email == user.email) {
+          console.log(user)
+        if (user.email == email) {
           res.status(400).send("A user with this email already exists");
+          console.log("A user already exit with this email");
         } else {
           //proceed to create account here
-
           student
             .save()
             .then(newStudent => {
               let token = jwt.sign(
-                { id: newStudent._id, email: newStudent.email },
+                { id: newStudent._id },
                 process.env.JWT_SECRET,
                 {
                   expiresIn: 86400 // expires in 24 hours
@@ -56,7 +60,8 @@ class AuthController {
         }
       })
       .catch(err => {
-        res.status(400).send("An error occured", err.message);
+        console.log(err);
+        res.status(400).send("An error occoured", err.message);
       });
   }
 
