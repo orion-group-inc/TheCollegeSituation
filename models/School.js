@@ -10,7 +10,7 @@ let SchoolSchema = mongoose.Schema({
   address: String,
   state: String,
   city: String,
-  zip: string,
+  zip: String,
   graduationRate: String,
   acceptanceRate: String,
   generalPhone: String,
