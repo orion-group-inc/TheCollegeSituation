@@ -8,7 +8,7 @@ class SchoolController {
    * @apiGroup School
    */
   static async getSchools(req, res) {
-    Student.find().then(allSchools => {
+    School.find().then(allSchools => {
       res.status(200).send({
         success: true,
         data: allSchools
@@ -22,7 +22,7 @@ class SchoolController {
    * @apiGroup School
    */
   static async createSchool(req, res) {
-    school = new School({
+    let school = new School({
       name: req.body.name,
       desc: req.body.desc,
       population: req.body.population,
@@ -37,12 +37,7 @@ class SchoolController {
     });
 
     school.save().then(newSchool => {
-      res
-        .status(200)
-        .send({ success: true, data: newSchool })
-        .catch(err => {
-          res.status(400).send("Could not create school", err);
-        });
+      res.status(200).send({ success: true, data: newSchool });
     });
   }
 }
