@@ -1,0 +1,7 @@
+{
+    "name": "The College Situation",
+    "version": "1.0.0",
+    "description": "API documentation for College Situation",
+    "title": "Consumable API's",
+    "url" : "https://thecollegesituation.herokuapp.com/api/v1"
+  }

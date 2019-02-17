@@ -1,6 +1,6 @@
-let mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-let registerStudentSchema = mongoose.Schema({
+let StudentSchema = mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
@@ -10,6 +10,6 @@ let registerStudentSchema = mongoose.Schema({
   isActive: { type: Boolean, default: true }
 });
 
-let Student = mongoose.model("Student", registerStudentSchema);
+let Student = mongoose.model("Student", StudentSchema);
 
 module.exports = Student;

@@ -1,58 +1,54 @@
 //Require all that's needed to power this App
-let express = require("express");
-let bodyParser = require("body-parser");
+const express = require("express");
+const bodyParser = require("body-parser");
+const connection = require("./config/connection");
 
-//===========================================
-//Mongoose
-let mongoose = require("mongoose");
-//===========================================
+const app = express();
+//=========================================================
+//Importing All Routes
+//=========================================================
 
-//===========================================
-//connecting to the Mongo Db Server
-//===========================================
-mongoose
-  .connect(
-    "mongodb://favourtheo:1A2b3c--@ds331145.mlab.com:31145/collegesituation",
-    { useNewUrlParser: true }
-  )
-  .then(() => {
-    console.log("Successfully connected to Mongo DB!");
-  })
-  .catch(err => {
-    console.log("Could not connect to MongoDB " + err.message);
-  });
-
-let app = express();
-
-//Importing Routes
+//Index / landing Route
 let indexRoute = require("./Routes/Index");
 
 //Students Register Route
-let studentRegisterRoute = require("./Routes/StudentRegister");
+let studentRoute = require("./Routes/Student");
 
-//--------------------------------------
+//School Creation Route
+let schoolRoute = require("./Routes/School");
+
+//=========================================================
 //All Middlewares here
-//--------------------------------------
+//=========================================================
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//--------------------------------------
-//All Routes here
-//--------------------------------------
+app.use(express.static("public"));
 
+//=========================================================
+//All Routes (Endpoints) getting used here
+//=========================================================
 
 //default landing:
-app.get('/', (req, res)=>{
-  res.status(200).send(" <br/><h3>The College Situation API</h3> <small>Version 1.0</small>")
-})
+app.get("/", (req, res) => {
+  res
+    .status(200)
+    .send(
+      " <br/><h3>The College Situation API</h3> <small>Version 1.0</small>"
+    );
+});
 
 //Welcome Route
-app.use("/api/secure2019/landing", indexRoute);
+app.use("/api/v1/landing", indexRoute);
 
 //Other Endpoints
-//Students Register Endpoint
-app.use("/api/secure2019/student", studentRegisterRoute);
+//Students Endpoint
+app.use("/api/v1/student", studentRoute);
 
-//Spining the Server on 3000
+//school endpoint
+app.use("/api/v1/school", schoolRoute);
+
+//=========================================================
+//Running the server on Port 3000 default
 let PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`App is running on Port ${PORT}`);
