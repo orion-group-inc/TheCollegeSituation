@@ -7,7 +7,7 @@ let StudentSchema = mongoose.Schema({
   birthday: String,
   password: String,
   dateOfCreation: { type: Date, default: Date.now },
-  isActive: { type: Boolean, default: false }
+  isActive: { type: Boolean, default: true }
 });
 
 let Student = mongoose.model("Student", StudentSchema);
