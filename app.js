@@ -11,6 +11,9 @@ let indexRoute = require("./Routes/Index");
 //Students Register Route
 let studentRoute = require("./Routes/Student");
 
+//Sschool Creation Route
+let schoolRoute = require("./Routes/School");
+
 //--------------------------------------
 //All Middlewares here
 //--------------------------------------
@@ -35,6 +38,9 @@ app.use("/api/v1/landing", indexRoute);
 //Other Endpoints
 //Students Endpoint
 app.use("/api/v1/student", studentRoute);
+
+//school
+app.use("/api/v1/school", schoolRoute);
 
 //Spining the Server on 3000
 let PORT = process.env.PORT || 3000;

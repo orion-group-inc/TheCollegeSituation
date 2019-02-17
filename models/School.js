@@ -12,7 +12,6 @@ let SchoolSchema = mongoose.Schema({
   acceptanceRate: String,
   generalPhone: String,
   intlAdmissionPhone: String,
-  totalEnrollment: String,
   dateOfCreation: { type: Date, default: Date.now },
   isActive: { type: Boolean, default: false }
 });
