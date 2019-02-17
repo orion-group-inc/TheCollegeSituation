@@ -35,7 +35,8 @@ class AuthController{
             });
             res.status(200).send({
                 success: true,
-                token
+                token,
+                newStudent
             });
             })
             .catch(err => {
