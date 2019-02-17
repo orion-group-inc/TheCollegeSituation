@@ -9,7 +9,7 @@ class AuthController{
      * @api {post} /student/register Register Student
      * @apiName Register Student
      * @apiGroup Student
-     * @apiParam {String} firstName students firstname
+     * @apiParam {String} firstName student's firstname
      * @apiParam {String} lastName student's last name
      * @apiParam {String} email student's email
      * @apiParam {String} password student's password

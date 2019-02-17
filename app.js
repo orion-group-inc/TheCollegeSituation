@@ -1,36 +1,41 @@
 //Require all that's needed to power this App
 const express = require("express");
 const bodyParser = require("body-parser");
-const connection = require('./config/connection');
+const connection = require("./config/connection");
 
 const app = express();
+//=========================================================
+//Importing All Routes
+//=========================================================
 
-//Importing Routes
+//Index / landing Route
 let indexRoute = require("./Routes/Index");
 
 //Students Register Route
 let studentRoute = require("./Routes/Student");
 
-//Sschool Creation Route
+//School Creation Route
 let schoolRoute = require("./Routes/School");
 
-//--------------------------------------
+//=========================================================
 //All Middlewares here
-//--------------------------------------
+//=========================================================
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-
-//--------------------------------------
-//All Routes here
-//--------------------------------------
-
+//=========================================================
+//All Routes (Endpoints) getting used here
+//=========================================================
 
 //default landing:
-app.get('/', (req, res)=>{
-  res.status(200).send(" <br/><h3>The College Situation API</h3> <small>Version 1.0</small>")
-})
+app.get("/", (req, res) => {
+  res
+    .status(200)
+    .send(
+      " <br/><h3>The College Situation API</h3> <small>Version 1.0</small>"
+    );
+});
 
 //Welcome Route
 app.use("/api/v1/landing", indexRoute);
@@ -39,10 +44,11 @@ app.use("/api/v1/landing", indexRoute);
 //Students Endpoint
 app.use("/api/v1/student", studentRoute);
 
-//school
+//school endpoint
 app.use("/api/v1/school", schoolRoute);
 
-//Spining the Server on 3000
+//=========================================================
+//Running the server on Port 3000 default
 let PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`App is running on Port ${PORT}`);
