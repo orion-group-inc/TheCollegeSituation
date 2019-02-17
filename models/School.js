@@ -8,12 +8,14 @@ let SchoolSchema = mongoose.Schema({
   avgTuitionLocal: String,
   website: String,
   address: String,
+  state: String,
+  city: String,
   graduationRate: String,
   acceptanceRate: String,
   generalPhone: String,
   intlAdmissionPhone: String,
   dateOfCreation: { type: Date, default: Date.now },
-  isActive: { type: Boolean, default: false }
+  isActive: { type: Boolean, default: true }
 });
 
 let School = mongoose.model("School", SchoolSchema);

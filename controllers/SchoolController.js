@@ -6,6 +6,10 @@ class SchoolController {
    * @api {get} /school/allSchools Get school information
    * @apiName GetSchools
    * @apiGroup School
+   * @apiParam {String} name name of school
+   * @apiParam {String} desc description of school
+   * @apiParam {String} population total school enrollment
+   
    */
   static async getSchools(req, res) {
     School.find().then(allSchools => {
@@ -30,6 +34,8 @@ class SchoolController {
       avgTuitionLocal: req.body.avgTuitionLocal,
       website: req.body.website,
       address: req.body.address,
+      state: req.body.state,
+      city: req.body.city,
       graduationRate: req.body.graduationRate,
       acceptanceRate: req.body.acceptanceRate,
       generalPhone: req.body.generalPhone,
