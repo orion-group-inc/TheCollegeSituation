@@ -24,6 +24,7 @@ class SchoolController {
    * @apiParam {String} intlAdmissionPhone International admission Phone
    * @apiParam {String} generalPhone General admission Phone
    * @apiParam {String} dateOfCreation date of creation
+   * @apiParam {Array} photos Array of school photos
    *
    */
 
@@ -56,7 +57,8 @@ class SchoolController {
       graduationRate: req.body.graduationRate,
       acceptanceRate: req.body.acceptanceRate,
       generalPhone: req.body.generalPhone,
-      intlAdmissionPhone: req.body.intlAdmissionPhone
+      intlAdmissionPhone: req.body.intlAdmissionPhone,
+      photos: req.body.photos
     });
 
     school.save().then(newSchool => {

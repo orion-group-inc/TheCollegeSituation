@@ -16,7 +16,8 @@ let SchoolSchema = mongoose.Schema({
   generalPhone: String,
   intlAdmissionPhone: String,
   dateOfCreation: { type: Date, default: Date.now },
-  isActive: { type: Boolean, default: true }
+  isActive: { type: Boolean, default: true },
+  photos: { type: Array }
 });
 
 let School = mongoose.model("School", SchoolSchema);
