@@ -2,7 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const connection = require("./config/connection");
-const expressValidator = require('express-validator');
+const expressValidator = require("express-validator");
 const app = express();
 //=========================================================
 //Importing All Routes
@@ -27,6 +27,17 @@ app.use(expressValidator());
 //=========================================================
 //All Routes (Endpoints) getting used here
 //=========================================================
+
+//CORS
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 //default landing:
 app.get("/", (req, res) => {
