@@ -15,7 +15,7 @@ class AuthController {
    */
   static async registerStudent(req, res) {
     //declaring variables
-    
+
     //Create New Student (Work on the Mongo Db stuff here..)
     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
@@ -27,10 +27,8 @@ class AuthController {
       password: hashedPassword
     });
 
-    
-    Student.findOne({email: req.body.email})
+    Student.findOne({ email: req.body.email })
       .then(user => {
-         
         if (user && user.email == req.body.email) {
           res.status(400).send("A user with this email already exists");
         } else {
@@ -84,9 +82,9 @@ class AuthController {
               expiresIn: 86400 // expires in 24 hours
             }
           );
-          res.send({ auth: true, token, user });
+          res.status(200).send({ auth: true, token, user, loggedIn: true });
         } else {
-          res.status(401).send({ auth: false, token: null });
+          res.status(401).send({ auth: false, token: null, loggedIn: false });
         }
       })
       .catch(err => {
