@@ -2,12 +2,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const connection = require("./config/connection");
-
+const expressValidator = require('express-validator');
 const app = express();
 //=========================================================
 //Importing All Routes
 //=========================================================
-
+app.use(express.json());
 //Index / landing Route
 let indexRoute = require("./Routes/Index");
 
@@ -23,7 +23,7 @@ let schoolRoute = require("./Routes/School");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-
+app.use(expressValidator());
 //=========================================================
 //All Routes (Endpoints) getting used here
 //=========================================================
