@@ -15,7 +15,7 @@ class AuthController {
    */
   static async registerStudent(req, res) {
     //declaring variables
-    let email = req.body.email;
+    
     //Create New Student (Work on the Mongo Db stuff here..)
     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
@@ -27,13 +27,12 @@ class AuthController {
       password: hashedPassword
     });
 
-    // let email = req.body.email;
-    Student.findOne({ email })
+    
+    Student.findOne({email: req.body.email})
       .then(user => {
-          console.log(user)
-        if (user.email == email) {
+         
+        if (user && user.email == req.body.email) {
           res.status(400).send("A user with this email already exists");
-          console.log("A user already exit with this email");
         } else {
           //proceed to create account here
           student
