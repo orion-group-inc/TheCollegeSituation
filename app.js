@@ -8,6 +8,7 @@ const app = express();
 //Importing All Routes
 //=========================================================
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 //Index / landing Route
 let indexRoute = require("./Routes/Index");
 
