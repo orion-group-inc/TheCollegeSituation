@@ -5,6 +5,6 @@ let AdviceSchema = mongoose.Schema({
   dateOfCreation: { type: Date, default: Date.now }
 });
 
-let Student = mongoose.model("Advice", AdviceSchema);
+let Advice = mongoose.model("Advice", AdviceSchema);
 
 module.exports = Advice;
