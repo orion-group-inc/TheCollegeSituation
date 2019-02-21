@@ -18,6 +18,9 @@ let studentRoute = require("./Routes/Student");
 //School Creation Route
 let schoolRoute = require("./Routes/School");
 
+//importing the advice route
+let AdviceRoute = require("./Routes/Advice");
+
 //=========================================================
 //All Middlewares here
 //=========================================================
@@ -58,6 +61,9 @@ app.use("/api/v1/student", studentRoute);
 
 //school endpoint
 app.use("/api/v1/school", schoolRoute);
+
+//Advice endpoint
+app.use("/api/v1/advice", AdviceRoute);
 
 //=========================================================
 //Running the server on Port 3000 default
