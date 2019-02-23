@@ -84,7 +84,7 @@ class AuthController {
           );
 
 
-          res.status(200).send({ auth: true, token, email, password, user, loggedIn: true });
+          res.status(200).send({ auth: true, token, email, user, loggedIn: true });
         } else {
           res.status(401).send({ auth: false, token: null, loggedIn: false });
         }
