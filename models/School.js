@@ -21,7 +21,8 @@ let SchoolSchema = mongoose.Schema({
   isActive: { type: Boolean, default: true },
   photos: { type: Array },
   courses: String,
-  scholarships: String
+  scholarships: String,
+  category: String
 });
 
 let School = mongoose.model("School", SchoolSchema);

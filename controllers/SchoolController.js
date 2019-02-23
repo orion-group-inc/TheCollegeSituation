@@ -60,7 +60,8 @@ class SchoolController {
       intlAdmissionPhone: req.body.intlAdmissionPhone,
       photos: req.body.photos,
       courses: req.body.courses,
-      scholarships: req.body.scholarships
+      scholarships: req.body.scholarships,
+      category: req.body.scholarships
     });
 
     school.save().then(newSchool => {
