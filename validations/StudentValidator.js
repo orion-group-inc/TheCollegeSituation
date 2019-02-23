@@ -49,7 +49,7 @@ class StudentValidator {
       return res.status(422).json({
         errors: extractErrors(errors),
         status: 422,
-        message: 'Unprocessable Entity'
+        message: 'Bad request 😈'
       });
     }
     return next();
