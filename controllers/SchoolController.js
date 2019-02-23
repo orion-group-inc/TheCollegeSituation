@@ -61,7 +61,7 @@ class SchoolController {
       photos: req.body.photos,
       courses: req.body.courses,
       scholarships: req.body.scholarships,
-      category: req.body.scholarships
+      category: req.body.category
     });
 
     school.save().then(newSchool => {
