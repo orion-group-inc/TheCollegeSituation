@@ -18,21 +18,14 @@ class AdviceController {
     });
   }
 
-
-
-
-
-
   //creating a new advice
-/**
-  * @api {post} /advice/createAdvice Create new Advice
-  * @apiName CreateAdvices
-  * @apiGroup Advices
-  * @apiParam {String} _id Unique ID of each advice
-  * @apiParam {String} adviceBody the actual body of the advice
-  */
-
-
+  /**
+   * @api {post} /advice/createAdvice Create new Advice
+   * @apiName CreateAdvices
+   * @apiGroup Advices
+   * @apiParam {String} _id Unique ID of each advice
+   * @apiParam {String} adviceBody the actual body of the advice
+   */
 
   static async createAdvice(req, res) {
     let advice = new Advice({
