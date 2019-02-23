@@ -4,13 +4,13 @@ const fs = require('fs');
 const {extractErrors} = Helpers;
 
 /**
- * Defines methods for validating student Register functions
+ * Defines methods for validating school Register functions
  *
- * @class RegisterValidator
+ * @class RegisterSchoolValidator
  */
-class StudentValidator {
+class SchoolValidator {
     /**
-   * validates student signup
+   * validates school registration
    * @param {object} req
    * @param {object} res
    * @param {callback} next
@@ -67,4 +67,4 @@ class StudentValidator {
   }
 
   }
-  module.exports = StudentValidator;
+  module.exports = SchoolValidator;
