@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+//Add Majors to the schema
 
 let SchoolSchema = mongoose.Schema({
   name: String,
