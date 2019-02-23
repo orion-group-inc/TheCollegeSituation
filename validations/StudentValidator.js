@@ -2,7 +2,7 @@ const Helpers = require('./../helpers/helper');
 const {extractErrors} = Helpers;
 
 /**
- * Defines methods for validating Register functions
+ * Defines methods for validating student Register functions
  *
  * @class RegisterValidator
  */
@@ -16,10 +16,8 @@ class StudentValidator {
   static validateStudent(req, res, next) {
     req.check('firstName', 'First Name is required').notEmpty().trim();
     req.check('lastName', 'Last Name is required').notEmpty().trim();
-    req.check('email', 'Email field is required').notEmpty().trim()
-      .isEmail().withMessage('Invalid email');
-    req.check('password', 'Password is required')
-      .notEmpty().trim().isLength({ min: 6 })
+    req.check('email', 'Email field is required').notEmpty().trim().isEmail().withMessage('Invalid email');
+    req.check('password', 'Password is required').notEmpty().trim().isLength({ min: 6 })
       .withMessage('password cannot be less then 6 characters');
     req.check('birthday', 'Birthday is required');
     const errors = req.validationErrors();
@@ -41,7 +39,8 @@ class StudentValidator {
    * @param {callback} next
    */
   static validateStudentLogin(req, res, next) {
-    req.check('email', 'Email field is required').notEmpty().trim()
+    req.check('email', 'Email field is required')
+      .notEmpty().trim()
       .isEmail().withMessage('Invalid email');
     req.check('password', 'Password is required')
     const errors = req.validationErrors();
