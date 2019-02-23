@@ -17,7 +17,7 @@ class SchoolValidator {
    */
   static validateSchool(req, res, next) {
     req.check('name', 'School Name is required').notEmpty().trim();
-    req.check('desc', 'School Name is required').notEmpty().trim();
+    req.check('desc', 'School Description is required').notEmpty().trim();
     req.check('population', 'Population is required').notEmpty().trim()
         .isNumeric().withMessage('Population must be a number');
     req.check('avgTuitionInternational', 'avgTuitionInternational Field is required').notEmpty().trim()
