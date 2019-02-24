@@ -113,7 +113,7 @@ class SchoolController {
       acceptanceRate: req.body.acceptanceRate,
       generalPhone: req.body.generalPhone,
       intlAdmissionPhone: req.body.intlAdmissionPhone,
-      photos: req.body.photos,
+      photo: req.body.photo,
       courses: req.body.courses,
       scholarships: req.body.scholarships,
       category: req.body.category
