@@ -40,18 +40,15 @@ class SchoolValidator {
     req.check('state', 'state is required').notEmpty().trim()
     req.check('city', 'city is required').notEmpty().trim()
     req.check('zip', 'zip code is required').notEmpty().trim()
-
     req.check('website', 'School website is required').notEmpty().trim();
             
 
     const errors = req.validationErrors();
 
     if (errors) {
-        if(req.files){
-            req.files.map((item, index) => {
-                fs.unlink(item.path, () => {
+        if(req.file){     
+                fs.unlink(req.file.path, () => {
                   console.log('deleted ' + item.path);
-              });
             });
         }
         
@@ -61,8 +58,9 @@ class SchoolValidator {
         message: 'Unprocessable Entity'
       });
     }
-    req.body.photos = req.files;
-    console.log(req.body.photos);
+    
+    req.body.photo = req.file.path;
+    
     return next();
   }
 

@@ -19,10 +19,17 @@ let TempSchoolSchema = mongoose.Schema({
   intlAdmissionPhone: String,
   dateOfCreation: { type: Date, default: Date.now },
   isActive: { type: Boolean, default: true },
-  photos: { type: Array },
+  photo: String,
   courses: String,
   scholarships: String,
   category: String,
+  avgSAT : String,
+  avgACT : String,
+  type : String,
+  aboutLocation : String,
+  admissions: String,
+  academics: String,
+  fastFacts : String,
   migrated: {type: Boolean, default: false}
 });
 

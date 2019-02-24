@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         let filename = file.fieldname + '-' + Date.now() + '.' + file.mimetype.split('/')[1];
-        uploaded.push(filename);
+        // uploaded.push(filename);
         cb(null, filename);
     }
 });
@@ -31,6 +31,6 @@ routes.get("/allSchools", getSchools);
 
 routes.post("/createSchool", createSchool);
 
-routes.post("/createTempSchool", upload.array('photos', 12), validateSchool, createTempSchool);
+routes.post("/createTempSchool", upload.single('photo'), validateSchool, createTempSchool);
 
 module.exports = routes;
