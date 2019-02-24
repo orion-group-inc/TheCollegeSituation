@@ -40,7 +40,7 @@ class SchoolController {
    * @apiParam {String} intlAdmissionPhone International admission Phone
    * @apiParam {String} generalPhone General admission Phone
    * @apiParam {String} dateOfCreation date of creation
-   * @apiParam {Array} photos Array of school photos
+   * @apiParam {Array} photo Array of school photos
    *
    */
   static async createSchool(req, res) {
@@ -59,7 +59,7 @@ class SchoolController {
       acceptanceRate: req.body.acceptanceRate,
       generalPhone: req.body.generalPhone,
       intlAdmissionPhone: req.body.intlAdmissionPhone,
-      photos: req.body.photos,
+      photo: req.body.photo,
       courses: req.body.courses,
       scholarships: req.body.scholarships,
       category: req.body.category
