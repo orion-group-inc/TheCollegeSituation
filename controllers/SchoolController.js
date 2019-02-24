@@ -62,7 +62,14 @@ class SchoolController {
       photo: req.body.photo,
       courses: req.body.courses,
       scholarships: req.body.scholarships,
-      category: req.body.category
+      category: req.body.category,
+      avgSAT: req.body.avgSAT,
+      avgACT: req.body.avgACT,
+      type: req.body.type,
+      aboutLocation: req.body.aboutLocation,
+      admissions: req.body.admissions,
+      academics: req.body.academics,
+      fastFacts: req.body.fastFacts
     });
 
     school.save().then(newSchool => {
@@ -124,9 +131,14 @@ class SchoolController {
       fastFacts: req.body.fastFacts
     });
 
-    school.save().then(newSchool => {
-      res.status(200).send({ success: true, data: newSchool });
-    });
+    school
+      .save()
+      .then(newSchool => {
+        res.status(200).send({ success: true, data: newSchool });
+      })
+      .catch(err => {
+        res.status(400).send("Could not save school", err.message);
+      });
   }
 }
 
