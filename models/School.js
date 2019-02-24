@@ -22,7 +22,16 @@ let SchoolSchema = mongoose.Schema({
   photo: { type: String },
   courses: String,
   scholarships: String,
-  category: String
+  category: String,
+  avgSAT : String,
+  avgACT : String,
+  type : String,
+  aboutLocation : String,
+  admissions: String,
+  academics: String,
+  fastFacts : String
+  
+ 
 });
 
 let School = mongoose.model("School", SchoolSchema);

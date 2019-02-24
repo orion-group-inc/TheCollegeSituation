@@ -40,7 +40,7 @@ class SchoolController {
    * @apiParam {String} intlAdmissionPhone International admission Phone
    * @apiParam {String} generalPhone General admission Phone
    * @apiParam {String} dateOfCreation date of creation
-   * @apiParam {Array} photo Photo of school 
+   * @apiParam {Array} photo Photo of school
    *
    */
   static async createSchool(req, res) {
@@ -70,7 +70,6 @@ class SchoolController {
     });
   }
 
-
   /**
    * @api {post} /school/createTempSchool Create a temporary school until approved
    * @apiName CreateTestSchool
@@ -97,7 +96,6 @@ class SchoolController {
    *
    */
   static async createTempSchool(req, res) {
-  
     let school = new TempSchool({
       name: req.body.name,
       desc: req.body.desc,
@@ -116,7 +114,14 @@ class SchoolController {
       photo: req.body.photo,
       courses: req.body.courses,
       scholarships: req.body.scholarships,
-      category: req.body.category
+      category: req.body.category,
+      avgSAT: req.body.avgSAT,
+      avgACT: req.body.avgACT,
+      type: req.body.type,
+      aboutLocation: req.body.aboutLocation,
+      admissions: req.body.admissions,
+      academics: req.body.academics,
+      fastFacts: req.body.fastFacts
     });
 
     school.save().then(newSchool => {
@@ -124,6 +129,5 @@ class SchoolController {
     });
   }
 }
-
 
 module.exports = SchoolController;
