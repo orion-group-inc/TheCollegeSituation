@@ -19,7 +19,7 @@ let SchoolSchema = mongoose.Schema({
   intlAdmissionPhone: String,
   dateOfCreation: { type: Date, default: Date.now },
   isActive: { type: Boolean, default: true },
-  photo: { type: Array },
+  photo: { type: String },
   courses: String,
   scholarships: String,
   category: String
