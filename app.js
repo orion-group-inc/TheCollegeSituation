@@ -9,6 +9,9 @@ const app = express();
 //=========================================================
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+//allowing for serving static files
+app.use(express.static('public'))
 //Index / landing Route
 let indexRoute = require("./Routes/Index");
 
