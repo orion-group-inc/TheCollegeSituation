@@ -60,6 +60,7 @@ class SchoolValidator {
         message: 'Unprocessable Entity'
       });
     }
+    console.log(req.file);
     req.body.photo = savedDestination + req.file.filename;
     
     return next();
