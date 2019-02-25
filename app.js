@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'))
 //Index / landing Route
 let indexRoute = require("./Routes/Index");
-app.use('/public/schools', express.static(__dirname + '/Images'));
+// app.use('/public/schools', express.static(__dirname + '/Images'));
 //Students Register Route
 let studentRoute = require("./Routes/Student");
 
@@ -29,7 +29,6 @@ let AdviceRoute = require("./Routes/Advice");
 //=========================================================
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
 app.use(expressValidator());
 //=========================================================
 //All Routes (Endpoints) getting used here
