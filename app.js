@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'))
 //Index / landing Route
 let indexRoute = require("./Routes/Index");
-
+app.use('/public/schools', express.static(__dirname + '/Images'));
 //Students Register Route
 let studentRoute = require("./Routes/Student");
 
