@@ -158,7 +158,7 @@ class SchoolController {
 
   static async migrateSchool(req, res) {
     
-    TempSchool.findOneAndDelete({_id: req.params.id})
+    TempSchool.findOne({_id: req.params.id})
       .then(currentSchool => {
         let current = currentSchool.toObject();
         delete current['_id'];
