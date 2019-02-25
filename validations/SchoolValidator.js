@@ -3,6 +3,8 @@ const fs = require('fs');
 
 const {extractErrors} = Helpers;
 
+const savedDestination = 'schools/';
+
 /**
  * Defines methods for validating school Register functions
  *
@@ -58,7 +60,6 @@ class SchoolValidator {
         message: 'Unprocessable Entity'
       });
     }
-    
     req.body.photo = req.file.path;
     
     return next();
