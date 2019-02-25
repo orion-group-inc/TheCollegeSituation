@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         let filename = file.fieldname + '-' + Date.now() + '.' + file.mimetype.split('/')[1];
-        // uploaded.push(filename);
+        console.log(file, filename);
         cb(null, filename);
     }
 });
@@ -24,12 +24,14 @@ const upload = multer({ storage });
 const SchoolController = require("./../controllers/SchoolController");
 const SchoolValidator = require('./../validations/SchoolValidator');
 
-const { getSchools, createSchool, createTempSchool } = SchoolController;
+const { getSchools, createSchool, createTempSchool, migrateSchool } = SchoolController;
 const {validateSchool}  = SchoolValidator;
 
 routes.get("/allSchools", getSchools);
 
 routes.post("/createSchool", createSchool);
+
+routes.get("/migrateSchool/:id", migrateSchool);
 
 routes.post("/createTempSchool", upload.single('photo'), validateSchool, createTempSchool);
 

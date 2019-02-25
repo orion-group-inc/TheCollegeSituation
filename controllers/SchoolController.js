@@ -19,6 +19,21 @@ class SchoolController {
   }
 
   /**
+   * @api {get} /school/allTempSchools Get Temp school information
+   * @apiName GetTempSchools
+   * @apiGroup TempSchool
+   */
+
+  static async getTempSchools(req, res) {
+    TempSchool.find().then(allTempSchools => {
+      res.status(200).send({
+        success: true,
+        data: allTempSchools
+      });
+    });
+  }
+
+  /**
    * @api {post} /school/createSchool Create a new school
    * @apiName CreateSchool
    * @apiGroup School
@@ -135,6 +150,31 @@ class SchoolController {
       .save()
       .then(newSchool => {
         res.status(200).send({ success: true, data: newSchool });
+      })
+      .catch(err => {
+        res.status(400).send("Could not save school", err.message);
+      });
+  }
+
+  static async migrateSchool(req, res) {
+    
+    TempSchool.findOneAndDelete({_id: req.params.id})
+      .then(currentSchool => {
+        let current = currentSchool.toObject();
+        delete current['_id'];
+        delete current['migrated'];
+        delete current['dateOfCreation'];
+        delete current['__v'];
+
+        console.log(current);
+        new School(current)
+          .save()
+          .then(mainSchool => {
+          res.status(200).send({ success: true, data: mainSchool, message: 'Migration Successful' });
+        }).catch(error => {
+          console.log(error.message);
+        })
+        
       })
       .catch(err => {
         res.status(400).send("Could not save school", err.message);
