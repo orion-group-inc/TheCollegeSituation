@@ -23,7 +23,6 @@ class AuthController {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
-      birthday: req.body.birthday,
       password: hashedPassword
     });
 
