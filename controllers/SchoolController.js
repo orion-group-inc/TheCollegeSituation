@@ -84,7 +84,8 @@ class SchoolController {
       aboutLocation: req.body.aboutLocation,
       admissions: req.body.admissions,
       academics: req.body.academics,
-      fastFacts: req.body.fastFacts
+      fastFacts: req.body.fastFacts,
+      email : req.body.email
     });
 
     school.save().then(newSchool => {
@@ -143,7 +144,8 @@ class SchoolController {
       aboutLocation: req.body.aboutLocation,
       admissions: req.body.admissions,
       academics: req.body.academics,
-      fastFacts: req.body.fastFacts
+      fastFacts: req.body.fastFacts,
+      email: req.body.email
     });
 
     school

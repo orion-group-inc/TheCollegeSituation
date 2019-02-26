@@ -29,7 +29,8 @@ let SchoolSchema = mongoose.Schema({
   aboutLocation : String,
   admissions: String,
   academics: String,
-  fastFacts : String
+  fastFacts : String,
+  email: String
   
  
 });
