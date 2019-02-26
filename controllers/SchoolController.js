@@ -85,7 +85,8 @@ class SchoolController {
       admissions: req.body.admissions,
       academics: req.body.academics,
       fastFacts: req.body.fastFacts,
-      email : req.body.email
+      email : req.body.email,
+      applicationFee: req.body.applicationFee,
     });
 
     school.save().then(newSchool => {

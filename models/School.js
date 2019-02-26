@@ -30,7 +30,8 @@ let SchoolSchema = mongoose.Schema({
   admissions: String,
   academics: String,
   fastFacts : String,
-  email: String
+  email: String,
+  applicationFee : String
   
  
 });
