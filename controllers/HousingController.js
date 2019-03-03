@@ -50,17 +50,24 @@ class HousingController {
       zip: req.body.zip
     });
 
-    house.save().then(newHouse => {
-      res
-        .status(200)
-        .send({
-          success: true,
-          data: newHouse
-        })
-        .catch(err => {
-          res.status(400).send("Could not create house", err.message);
-        });
-    });
+    house
+      .save()
+      .then(newHouse => {
+        if (newHouse) {
+          res.status(200).send({
+            success: true,
+            data: newHouse
+          });
+        } else {
+          res.status(400).send({
+            success: false,
+            error: "Could not add listing"
+          });
+        }
+      })
+      .catch(err => {
+        res.status(400).send("Could not create house", err.message);
+      });
   }
 }
 
