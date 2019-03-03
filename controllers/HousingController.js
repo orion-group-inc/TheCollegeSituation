@@ -68,7 +68,7 @@ class HousingController {
         }
       })
       .catch(err => {
-        res.status(400).send("Could not create house", err.message);
+        res.status(400).send("Oops, an error has occoured", err.message);
       });
   }
 }
