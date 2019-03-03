@@ -85,8 +85,8 @@ class SchoolController {
       admissions: req.body.admissions,
       academics: req.body.academics,
       fastFacts: req.body.fastFacts,
-      email : req.body.email,
-      applicationFee: req.body.applicationFee,
+      email: req.body.email,
+      applicationFee: req.body.applicationFee
     });
 
     school.save().then(newSchool => {
@@ -160,29 +160,93 @@ class SchoolController {
   }
 
   static async migrateSchool(req, res) {
-    
-    TempSchool.findOne({_id: req.params.id})
+    TempSchool.findOne({ _id: req.params.id })
       .then(currentSchool => {
         let current = currentSchool.toObject();
-        delete current['_id'];
-        delete current['migrated'];
-        delete current['dateOfCreation'];
-        delete current['__v'];
+        delete current["_id"];
+        delete current["migrated"];
+        delete current["dateOfCreation"];
+        delete current["__v"];
 
         console.log(current);
         new School(current)
           .save()
           .then(mainSchool => {
-          res.status(200).send({ success: true, data: mainSchool, message: 'Migration Successful' });
-        }).catch(error => {
-          console.log(error.message);
-        })
-        
+            res.status(200).send({
+              success: true,
+              data: mainSchool,
+              message: "Migration Successful"
+            });
+          })
+          .catch(error => {
+            console.log(error.message);
+          });
       })
       .catch(err => {
         res.status(400).send("Could not save school", err.message);
       });
   }
+
+  //Endpoint to search for a single school by name
+
+  /**
+   * @api {get} /school/searchSchoolByName Search for schools by their names
+   * @apiName searchSchoolByName
+   * @apiGroup School
+   */
+  static async searchSchoolByName(req, res) {
+    let schoolName = req.body.schoolName
+    School.findOne({ name: schoolName})
+      .then(result => {
+        res.status(200).send({
+          success: true,
+          data: result
+        });
+      })
+      .catch(err => {
+        res.status(400).send("School not found", err.message);
+      });
+  }
+
+
+
+//Endpoint to search for schools by city
+
+  /**
+     * @api {get} /school/searchSchoolByCity Search for schools by city
+     * @apiName searchSchoolByCity
+     * @apiGroup School
+     */
+  static async searchSchoolByCity(req, res) {
+    let cityName = req.body.cityName
+    School.find({ city: cityName })
+      .then(result => {
+       
+        if(result!=null){
+          res.status(200).send({
+            success: true,
+            data: result
+          });
+        }else{
+          res.status(200).send({
+            success: false,
+            message: "School / city not found!"
+            
+          });
+        }
+      })
+      .catch(err => {
+        res.status(400).send("Schools / City not found", err.message);
+      });
+  }
+
+
+
+
+
+
+
+
 }
 
 module.exports = SchoolController;
