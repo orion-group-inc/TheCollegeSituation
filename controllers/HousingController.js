@@ -30,7 +30,7 @@ class HousingController {
   static async createHouse(req, res) {
     let house = new House({
       //Body of the house data
-      photos: req.body.photos,
+
       type: req.body.type,
       address: req.body.address,
       bedrooms: req.body.bedrooms,
@@ -47,7 +47,9 @@ class HousingController {
       HeatingType: req.body.HeatingType,
       city: req.body.city,
       state: req.body.state,
-      zip: req.body.zip
+      zip: req.body.zip,
+      mainPhoto: req.body.mainPhoto,
+      photos: req.body.photos
     });
 
     house
@@ -61,7 +63,7 @@ class HousingController {
         } else {
           res.status(400).send({
             success: false,
-            error: "Could not add listing"
+            error: "Unable not add listing"
           });
         }
       })
