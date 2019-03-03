@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //allowing for serving static files
-app.use(express.static('public'))
+app.use(express.static("public"));
 //Index / landing Route
 let indexRoute = require("./Routes/Index");
 // app.use('/public/schools', express.static(__dirname + '/Images'));
@@ -23,6 +23,9 @@ let schoolRoute = require("./Routes/School");
 
 //importing the advice route
 let AdviceRoute = require("./Routes/Advice");
+
+//importing the House route
+let HousingRoute = require("./Routes/HousingRoute");
 
 //=========================================================
 //All Middlewares here
@@ -66,6 +69,9 @@ app.use("/api/v1/school", schoolRoute);
 
 //Advice endpoint
 app.use("/api/v1/advice", AdviceRoute);
+
+//House endpoint
+app.use("/api/v1/housing", HousingRoute);
 
 //=========================================================
 //Running the server on Port 3000 default
