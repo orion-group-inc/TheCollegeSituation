@@ -23,6 +23,23 @@ class HousingController {
       });
   }
 
+  //getting single house wih ID
+
+  static async getSingleHouse(req, res) {
+    let id = req.params.id;
+    House.findOne({ _id: id })
+      .populate("owner")
+      .then(singleHouse => {
+        res.status(200).send({
+          success: true,
+          data: singleHouse
+        });
+      })
+      .catch(err => {
+        res.status(400).send("An error occoured", err.message);
+      });
+  }
+
   //creating a new House
   /**
    * @api {post} /housing/createHouse Create new House

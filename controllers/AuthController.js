@@ -82,8 +82,9 @@ class AuthController {
             }
           );
 
-
-          res.status(200).send({ auth: true, token, email, user, loggedIn: true });
+          res
+            .status(200)
+            .send({ auth: true, token, email, user, loggedIn: true });
         } else {
           res.status(401).send({ auth: false, token: null, loggedIn: false });
         }
@@ -91,6 +92,12 @@ class AuthController {
       .catch(err => {
         res.send(err);
       });
+  }
+
+  //Get User Profile
+
+  static async getStudentProfile(req, res) {
+    
   }
 }
 
