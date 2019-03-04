@@ -23,7 +23,7 @@ let HousingSchema = mongoose.Schema({
   state: String,
   zip: String,
   photos: [],
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" } // Creates relationships btw user profie and listing
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "Student" } // Creates relationships btw user profie and listing
 });
 
 //Model the Housing Schema

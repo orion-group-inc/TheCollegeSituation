@@ -10,12 +10,17 @@ class HousingController {
 
   //getting all Houses
   static async getHouses(req, res) {
-    House.find().then(allHouses => {
-      res.status(200).send({
-        success: true,
-        data: allHouses
+    House.find()
+      .populate("owner")
+      .then(allHouses => {
+        res.status(200).send({
+          success: true,
+          data: allHouses
+        });
+      })
+      .catch(err => {
+        res.status(400).send("An error occoured", err.message);
       });
-    });
   }
 
   //creating a new House
@@ -49,11 +54,13 @@ class HousingController {
       state: req.body.state,
       zip: req.body.zip,
       mainPhoto: req.body.mainPhoto,
-      photos: req.body.photos
+      photos: req.body.photos,
+      owner: req.body.owner
     });
 
     house
       .save()
+
       .then(newHouse => {
         if (newHouse) {
           res.status(200).send({
