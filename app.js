@@ -27,6 +27,9 @@ let AdviceRoute = require("./Routes/Advice");
 //importing the House route
 let HousingRoute = require("./Routes/HousingRoute");
 
+//importing the Student Profile route
+let StudentProfileRoute = require("./Routes/StudentProfileRoute");
+
 //=========================================================
 //All Middlewares here
 //=========================================================
@@ -53,7 +56,7 @@ app.get("/", (req, res) => {
   res
     .status(200)
     .send(
-      " <br/><h3>The College Situation API</h3> <small>Version 1.0</small>"
+      " <br/><center><h3>The College Situation API</h3> <small>Version 1.0 <br/> <br/>Favour Ori & Franklyn Nwanze</small> </center>"
     );
 });
 
@@ -72,6 +75,9 @@ app.use("/api/v1/advice", AdviceRoute);
 
 //House endpoint
 app.use("/api/v1/housing", HousingRoute);
+
+//Student Profile endpoint
+app.use("/api/v1/student", StudentProfileRoute);
 
 //=========================================================
 //Running the server on Port 3000 default
