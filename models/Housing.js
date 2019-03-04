@@ -13,7 +13,7 @@ let HousingSchema = mongoose.Schema({
   briefDescription: String,
   availability: String,
   catFriendly: { type: String },
-  dogFriendly: { tyle: String },
+  dogFriendly: { type: String },
   laundryType: String,
   parkingType: String,
   acType: String,
