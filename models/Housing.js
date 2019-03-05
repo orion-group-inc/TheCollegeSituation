@@ -17,7 +17,7 @@ let HousingSchema = mongoose.Schema({
   laundryType: String,
   parkingType: String,
   acType: String,
-  HeatingType: String,
+  heatingType: String,
   dateOfCreation: { type: Date, default: Date.now },
   city: String,
   state: String,
