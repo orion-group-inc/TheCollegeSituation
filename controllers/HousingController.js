@@ -65,8 +65,9 @@ class HousingController {
       dogFriendly: req.body.dogFriendly,
       laundryType: req.body.laundryType,
       parkingType: req.body.parkingType,
-      acType: req.body.acType,
       heatingType: req.body.heatingType,
+      acType: req.body.acType,
+
       city: req.body.city,
       state: req.body.state,
       zip: req.body.zip,

@@ -16,8 +16,9 @@ let HousingSchema = mongoose.Schema({
   dogFriendly: { type: String },
   laundryType: String,
   parkingType: String,
-  acType: String,
   heatingType: String,
+  acType: String,
+ 
   dateOfCreation: { type: Date, default: Date.now },
   city: String,
   state: String,
