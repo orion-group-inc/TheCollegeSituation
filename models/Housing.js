@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 //The Housing data
+//Checking
 
 let HousingSchema = mongoose.Schema({
   mainPhoto: String,
