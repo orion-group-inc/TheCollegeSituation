@@ -4,9 +4,9 @@ const multer = require("multer");
 const fs = require('fs');
 const dest = "public/houses/";
 
-if (!fs.existsSync(dest)){
-    fs.mkdirSync(dest);
-}
+// if (!fs.existsSync(dest)){
+//     fs.mkdirSync(dest);
+// }
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

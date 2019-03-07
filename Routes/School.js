@@ -4,9 +4,9 @@ const multer = require("multer");
 const fs = require('fs');
 const dest = "public/schools/";
 
-if (!fs.existsSync(dest)){
-  fs.mkdirSync(dest);
-}
+// if (!fs.existsSync(dest)){
+//   fs.mkdirSync(dest);
+// }
 let uploaded = [];
 
 const storage = multer.diskStorage({
