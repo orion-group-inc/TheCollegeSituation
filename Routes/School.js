@@ -1,7 +1,12 @@
 const express = require("express");
 const routes = express.Router();
 const multer = require("multer");
+const fs = require('fs');
 const dest = "public/schools/";
+
+if (!fs.existsSync(dest)){
+  fs.mkdirSync(dest);
+}
 let uploaded = [];
 
 const storage = multer.diskStorage({
@@ -11,7 +16,6 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     let filename =
       file.fieldname + "-" + Date.now() + "." + file.mimetype.split("/")[1];
-    console.log(file, filename);
     cb(null, filename);
   }
 });
@@ -37,7 +41,7 @@ const { validateSchool } = SchoolValidator;
 
 routes.get("/allSchools", getSchools);
 
-routes.post("/createSchool", createSchool);
+routes.post("/createSchool",upload.single("photo"), validateSchool, createSchool);
 
 routes.get("/migrateSchool/:id", migrateSchool);
 

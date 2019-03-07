@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 let HousingSchema = mongoose.Schema({
   mainPhoto: String,
-  type: "String",
+  type: String,
   address: String,
   bedrooms: String,
   bathrooms: String,
@@ -18,12 +18,11 @@ let HousingSchema = mongoose.Schema({
   parkingType: String,
   heatingType: String,
   acType: String,
- 
   dateOfCreation: { type: Date, default: Date.now },
   city: String,
   state: String,
   zip: String,
-  photos: [],
+  photos: {type: Array},
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "Student" } // Creates relationships btw user profie and listing
 });
 

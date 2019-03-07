@@ -67,7 +67,6 @@ class HousingController {
       parkingType: req.body.parkingType,
       heatingType: req.body.heatingType,
       acType: req.body.acType,
-
       city: req.body.city,
       state: req.body.state,
       zip: req.body.zip,
