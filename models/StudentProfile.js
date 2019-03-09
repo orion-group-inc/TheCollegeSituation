@@ -7,7 +7,8 @@ let StudentProfileSchema = mongoose.Schema({
   academicLevel: String,
   city: String,
   state: String,
-  country: String
+  country: String,
+  
 });
 
 let StudentProfile = mongoose.model("StudentProfile", StudentProfileSchema);
