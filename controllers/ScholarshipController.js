@@ -41,6 +41,23 @@ class ScholarshipController {
         res.status(400).send("An error occoured", err.message);
       });
   }
+
+  //getting single scholarshipwih ID
+
+  static async getSingleScholarship(req, res) {
+    let id = req.params.id;
+    Scholarship.findOne({ _id: id })
+
+      .then(singleScholarship => {
+        res.status(200).send({
+          success: true,
+          data: singleScholarship
+        });
+      })
+      .catch(err => {
+        res.status(400).send("An error occoured", err.message);
+      });
+  }
 }
 
 module.exports = ScholarshipController;

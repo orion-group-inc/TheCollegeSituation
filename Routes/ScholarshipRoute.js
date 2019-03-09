@@ -7,9 +7,14 @@ const routes = express.Router();
 const Scholarship = require("../models/Scholarship");
 const ScholarshipController = require("./../controllers/ScholarshipController");
 
-const { getAllScholarships, createScholarship } = ScholarshipController;
+const {
+  getAllScholarships,
+  createScholarship,
+  getSingleScholarship
+} = ScholarshipController;
 
 routes.get("/getAllScholarships", getAllScholarships);
 routes.post("/createScholarship", createScholarship);
+routes.get("/getSingleScholarship/:id", getSingleScholarship);
 
 module.exports = routes;
