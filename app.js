@@ -30,6 +30,9 @@ let HousingRoute = require("./Routes/HousingRoute");
 //importing the Student Profile route
 let StudentProfileRoute = require("./Routes/StudentProfileRoute");
 
+//importing the scholarship route
+let ScholarshipRoute = require("./Routes/ScholarshipRoute");
+
 //=========================================================
 //All Middlewares here
 //=========================================================
@@ -78,6 +81,9 @@ app.use("/api/v1/housing", HousingRoute);
 
 //Student Profile endpoint
 app.use("/api/v1/student", StudentProfileRoute);
+
+//scholarship endpoint
+app.use("/api/v1/scholarship", ScholarshipRoute);
 
 //=========================================================
 //Running the server on Port 3000 default
