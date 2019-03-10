@@ -42,7 +42,8 @@ class StoryController {
   static async getSingleStory(req, res) {
     let id = req.params.id;
     Story.findOne({ _id: id })
-
+      .populate("category")
+      .populate("owner")
       .then(singleStory => {
         res.status(200).send({
           success: true,
