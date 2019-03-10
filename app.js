@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const connection = require("./config/connection");
 const expressValidator = require("express-validator");
-const path = require('path');
+const path = require("path");
 const app = express();
 //=========================================================
 //Importing All Routes
@@ -43,6 +43,9 @@ let PaymentRoute = require("./Routes/PaymentRoute");
 //importing the scholarship route
 let KeyRoute = require("./Routes/KeyRoute");
 
+//importing the story category route
+let StoryCategoryRoute = require("./Routes/StoryCategoryRoute");
+
 //=========================================================
 //All Middlewares here
 //=========================================================
@@ -75,15 +78,12 @@ app.get("/", (req, res) => {
 
 //default landing:
 app.get("/apidoc", (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/apidoc', 'index.html'));
+  res.sendFile(path.join(__dirname, "public/apidoc", "index.html"));
 });
-
 
 app.get("/payment", (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'payment.html'));
+  res.sendFile(path.join(__dirname, "public", "payment.html"));
 });
-
-
 
 //Welcome Route
 app.use("/api/v1/landing", indexRoute);
@@ -116,6 +116,8 @@ app.use("/api/v1/payment", PaymentRoute);
 //key endpoint
 app.use("/api/v1/key", KeyRoute);
 
+//story category endpoint
+app.use("/api/v1/storyCategory", StoryCategoryRoute);
 //=========================================================
 //Running the server on Port 3000 default
 let PORT = process.env.PORT || 3000;
