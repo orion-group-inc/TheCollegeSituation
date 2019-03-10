@@ -74,7 +74,7 @@ app.get("/", (req, res) => {
 
 //default landing:
 app.get("/apidoc", (req, res) => {
-  res.sendFile('public/apidoc');
+  res.sendFile('public/apidoc/index.html');
 });
 
 //Welcome Route
