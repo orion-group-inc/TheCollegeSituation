@@ -3,6 +3,7 @@ const Payment = require("./../models/Payment");
 const Key = require("./../models/Key");
 const UserSubscription = require("./../models/UserSubscription");
 const Subscription = require("./../models/Subscription");
+const Student = require("./../models/Student");
 const Helper = require("./../helpers/helper");
 const axios = require('axios');
 const moment = require('moment');
@@ -16,7 +17,7 @@ class PaymentController {
    * @apiGroup Payment
    */
   static async getAllPayments(req, res) {
-    Payment.find().then(allPayments => {
+    Payment.find().populate('subscription').populate('authInfo', '-password').exec().then(allPayments => {
       res.status(200).send({
         success: true,
         data: allPayments
@@ -24,7 +25,7 @@ class PaymentController {
     });
   }
 
-  
+
   /**
    * @api {post} /payment/createPayment Create a new Payment
    * @apiName CreatePayment
@@ -43,7 +44,14 @@ class PaymentController {
     payment
       .save()
       .then(newPayment => {
-        res.status(200).send({ success: true, data: newPayment });
+        Payment.findOne({_id: newPayment._id})
+              .populate('authInfo', '-password')
+              .populate('subscription')
+              .exec()
+              .then(refPayment => {
+                res.status(200).send({ success: true, data: refPayment });
+              })
+        
       })
       .catch(err => {
         res.status(400).send("An error occoured", err.message);
@@ -95,22 +103,29 @@ class PaymentController {
             })
             
             if(response.data.data.status === 'success'){
+              // checks if payment is verified
               let userSubscription = await UserSubscription.findOne({authInfo: invoice.authInfo});
-             
+              let student = await Student.findOne({_id: invoice.authInfo});
               let subscription = await Subscription.findOne({_id: invoice.subscription});
 
               if(userSubscription){
+                // adds days to end Date of subscription
                 userSubscription.endDate = moment(userSubscription.endDate).add(subscription.duration, 'days');
+                student.userSubscriptions = userSubscription;
+                await student.save();
                 let updatedUserSubscription = await userSubscription.save();
                 
                 res.send({message: 'Subscription successully updated', data: updatedUserSubscription});
               }else{
+                
+                // creates a new subscription for user
                 let newUserSubscription = new UserSubscription({
                     authInfo: invoice.authInfo,
                     subscription: invoice.subscription,
                     endDate: moment().add(subscription.duration, 'days')
                 });
-
+                student.userSubscriptions = userSubscription;
+                await student.save();
                 let result = await newUserSubscription.save();
                 if(result){
                   res.send({message: 'subscription successful', data: result})

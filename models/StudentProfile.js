@@ -11,6 +11,6 @@ let StudentProfileSchema = mongoose.Schema({
   
 });
 
-let StudentProfile = mongoose.model("StudentProfile", StudentProfileSchema);
+let StudentProfile = mongoose.model("StudentProfile", StudentProfileSchema, 'profile');
 
 module.exports = StudentProfile;

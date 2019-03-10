@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
+const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 const Student = require("./../models/Student");
+const StudentProfile = require("./../models/StudentProfile");
 
 class AuthController {
   /**
@@ -26,40 +28,29 @@ class AuthController {
       password: hashedPassword
     });
 
-    Student.findOne({ email: req.body.email })
-      .then(user => {
+    let user = await Student.findOne({ email: req.body.email });
         if (user && user.email == req.body.email) {
-          res.status(400).send("A user with this email already exists");
+
+          res.status(400).send({ success: false, message: 'A user with this email already exists'});
         } else {
-          //proceed to create account here
-          student
-            .save()
-            .then(newStudent => {
-              let token = jwt.sign(
-                { id: newStudent._id },
-                process.env.JWT_SECRET,
-                {
-                  expiresIn: 86400 // expires in 24 hours
-                }
-              );
-              res.status(200).send({
-                success: true,
-                token,
-                newStudent
-              });
-            })
-            .catch(err => {
-              res
-                .status(400)
-                .send("Could not create new student :(", err.message);
-            });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(400).send("An error occoured", err.message);
-      });
-  }
+
+            //proceed to create account here
+          let newStudent = await student.save();
+              
+          let profile = new StudentProfile({
+            authInfo: newStudent._id
+          });
+          
+          let newProfile = await profile.save();
+          student.profile = newProfile;
+          await student.save();
+          
+          let token = jwt.sign(
+            { profile: newProfile, user: newStudent },process.env.JWT_SECRET,{expiresIn: 86400}
+          );
+          res.status(200).send({success: true, token, user: newStudent});
+    }
+}
 
   /**
    * @api {post} /student/login Login Student
@@ -70,28 +61,27 @@ class AuthController {
    */
   static async loginStudent(req, res) {
     const { email, password } = req.body;
-    Student.findOne({ email })
-      .then(user => {
-        let isPasswordValid = bcrypt.compareSync(password, user.password);
+    let user = await Student.findOne({ email }).populate('userSubscriptions').populate('profile').exec();
+    
+    if(user){
+      let isPasswordValid = bcrypt.compareSync(password, user.password);
         if (isPasswordValid) {
           let token = jwt.sign(
-            { id: user._id, email: user.email },
+            { user },
             process.env.JWT_SECRET,
             {
               expiresIn: 86400 // expires in 24 hours
             }
           );
-            console.log(token);
-          res
-            .status(200)
-            .send({ auth: true, token, email, user, loggedIn: true });
+          
+          res.status(200).send({ auth: true, token, user, loggedIn: true });
+
         } else {
           res.status(401).send({ auth: false, token: null, loggedIn: false });
         }
-      })
-      .catch(err => {
-        res.send(err);
-      });
+    }else{
+      res.status(400).send({message: 'User not found'})
+    }
   }
 
   //Get User Profile
