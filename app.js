@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const connection = require("./config/connection");
 const expressValidator = require("express-validator");
+const path = require('path');
 const app = express();
 //=========================================================
 //Importing All Routes
@@ -74,8 +75,15 @@ app.get("/", (req, res) => {
 
 //default landing:
 app.get("/apidoc", (req, res) => {
-  res.sendFile("public/apidoc");
+  res.sendFile(path.join(__dirname, 'public/apidoc', 'index.html'));
 });
+
+
+app.get("/payment", (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'payment.html'));
+});
+
+
 
 //Welcome Route
 app.use("/api/v1/landing", indexRoute);

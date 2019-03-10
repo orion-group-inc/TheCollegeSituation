@@ -78,7 +78,7 @@ class PaymentController {
    * @apiName VerifyPayment
    * @apiGroup Payment
    * @apiParam {String} invoice invoice number of the payment
-   *
+   * Add email sending after subscription
    */
   static async verifyPayment(req, res) {
     let key = await Key.findOne();
@@ -86,29 +86,34 @@ class PaymentController {
         let secret = key.live === false ? key.paystackTestSecretKey : key.paystackLiveSecretKey; 
 
         try{
-          let invoice = Payment.findOne({invoice: req.body.invoice});
+          let invoice = await Payment.findOne({invoice: req.body.invoice});
           if(invoice){
             let response = await axios.get('https://api.paystack.co/transaction/verify/'+req.body.invoice,{
               headers:{
                 Authorization: 'Bearer '+secret
               }
-            });
+            })
+            
             if(response.data.data.status === 'success'){
               let userSubscription = await UserSubscription.findOne({authInfo: invoice.authInfo});
+             
               let subscription = await Subscription.findOne({_id: invoice.subscription});
+
               if(userSubscription){
                 userSubscription.endDate = moment(userSubscription.endDate).add(subscription.duration, 'days');
-                await userSubscription.save();
-                res.send({message: 'Subscription successul', data: userSubscription});
+                let updatedUserSubscription = await userSubscription.save();
+                
+                res.send({message: 'Subscription successully updated', data: updatedUserSubscription});
               }else{
-                let newUserSubscription = new UserSubscriptionr({
+                let newUserSubscription = new UserSubscription({
                     authInfo: invoice.authInfo,
                     subscription: invoice.subscription,
                     endDate: moment().add(subscription.duration, 'days')
                 });
-                let result = newUserSubscription.save();
+
+                let result = await newUserSubscription.save();
                 if(result){
-                  res.send({message: 'subscription successful', data: userSubscription})
+                  res.send({message: 'subscription successful', data: result})
                 }else{
                   res.status(400).send({message: 'subscription failed'})
                 }
@@ -118,7 +123,7 @@ class PaymentController {
             res.status(400).send({message: 'Couldnt find invoice'});
           }
         }catch(e){
-          res.status(400).send(e.response.data);
+          res.status(400).send(e);
         }
         
     }
@@ -126,6 +131,5 @@ class PaymentController {
   }
 
 }
-
 
 module.exports = PaymentController;

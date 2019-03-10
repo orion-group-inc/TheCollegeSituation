@@ -81,7 +81,7 @@ class AuthController {
               expiresIn: 86400 // expires in 24 hours
             }
           );
-
+            console.log(token);
           res
             .status(200)
             .send({ auth: true, token, email, user, loggedIn: true });
