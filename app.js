@@ -46,6 +46,9 @@ let KeyRoute = require("./Routes/KeyRoute");
 //importing the story category route
 let StoryCategoryRoute = require("./Routes/StoryCategoryRoute");
 
+//importing the story route
+let StoryRoute = require("./Routes/StoryRoute");
+
 //=========================================================
 //All Middlewares here
 //=========================================================
@@ -118,6 +121,9 @@ app.use("/api/v1/key", KeyRoute);
 
 //story category endpoint
 app.use("/api/v1/storyCategory", StoryCategoryRoute);
+
+//story endpoint
+app.use("/api/v1/story", StoryRoute);
 //=========================================================
 //Running the server on Port 3000 default
 let PORT = process.env.PORT || 3000;
