@@ -36,6 +36,23 @@ class StoryController {
         res.status(400).send("An error occoured", err.message);
       });
   }
+
+  //getting single scholarshipwih ID
+
+  static async getSingleStory(req, res) {
+    let id = req.params.id;
+    Story.findOne({ _id: id })
+
+      .then(singleStory => {
+        res.status(200).send({
+          success: true,
+          data: singleStory
+        });
+      })
+      .catch(err => {
+        res.status(400).send("An error occoured", err.message);
+      });
+  }
 }
 
 module.exports = StoryController;

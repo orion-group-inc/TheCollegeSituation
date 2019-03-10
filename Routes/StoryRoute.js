@@ -7,10 +7,11 @@ const routes = express.Router();
 
 const StoryController = require("./../controllers/StoryController");
 
-const { getAllStories, createNewStory } = StoryController;
+const { getAllStories, createNewStory, getSingleStory } = StoryController;
 
 routes.get("/getAllStories", getAllStories);
 
+routes.get("/getSingleStory/:id", getSingleStory);
 routes.post("/createNewStory", createNewStory);
 
 module.exports = routes;
