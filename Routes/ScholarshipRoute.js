@@ -8,9 +8,9 @@ const Scholarship = require("../models/Scholarship");
 const ScholarshipController = require("./../controllers/ScholarshipController");
 
 const {
-  getAllScholarships,
-  createScholarship,
-  getSingleScholarship
+    getAllScholarships,
+    createScholarship,
+    getSingleScholarship
 } = ScholarshipController;
 
 routes.get("/getAllScholarships", getAllScholarships);
