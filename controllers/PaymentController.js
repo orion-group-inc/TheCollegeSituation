@@ -111,20 +111,20 @@ class PaymentController {
               if(userSubscription){
                 // adds days to end Date of subscription
                 userSubscription.endDate = moment(userSubscription.endDate).add(subscription.duration, 'days');
-                student.userSubscriptions = userSubscription;
+                student.userSubscription = userSubscription;
                 await student.save();
                 let updatedUserSubscription = await userSubscription.save();
                 
                 res.send({message: 'Subscription successully updated', data: updatedUserSubscription});
               }else{
-                
+
                 // creates a new subscription for user
                 let newUserSubscription = new UserSubscription({
                     authInfo: invoice.authInfo,
                     subscription: invoice.subscription,
                     endDate: moment().add(subscription.duration, 'days')
                 });
-                student.userSubscriptions = userSubscription;
+                student.userSubscription = userSubscription;
                 await student.save();
                 let result = await newUserSubscription.save();
                 if(result){

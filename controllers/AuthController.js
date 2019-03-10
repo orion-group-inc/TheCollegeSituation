@@ -61,7 +61,7 @@ class AuthController {
    */
   static async loginStudent(req, res) {
     const { email, password } = req.body;
-    let user = await Student.findOne({ email }).populate('userSubscriptions').populate('profile').exec();
+    let user = await Student.findOne({ email }).populate('userSubscription').populate('profile').exec();
     
     if(user){
       let isPasswordValid = bcrypt.compareSync(password, user.password);
