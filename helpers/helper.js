@@ -18,6 +18,24 @@ class Helpers {
     return Number.isInteger(Number(num));
   }
 
+  static generateInvoice() {
+      let start = "";
+      let end = "";
+      let multiplier = 12;
+      let alpha = "ABCDEFGHIJKLMNOPQRSTUPWXYZabcdefghijklmanopqrstuvwxyz0123456789";
+  
+      for (let i = 0; i < multiplier; i++) {
+          let rand = parseInt(Math.random() * alpha.length - 1);
+          start += alpha.substring(rand, rand + 1);
+      }
+  
+      for (let i = 0; i < multiplier; i++) {
+          let rand = parseInt(Math.random() * alpha.length - 1);
+          end += alpha.substring(rand, rand + 1);
+      }
+  
+      return start + end;
+  }
 
   static uploadImage(req) {
     let response;

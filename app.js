@@ -33,6 +33,15 @@ let StudentProfileRoute = require("./Routes/StudentProfileRoute");
 //importing the scholarship route
 let ScholarshipRoute = require("./Routes/ScholarshipRoute");
 
+//importing the scholarship route
+let SubscriptionRoute = require("./Routes/SubscriptionRoute");
+
+//importing the scholarship route
+let PaymentRoute = require("./Routes/PaymentRoute");
+
+//importing the scholarship route
+let KeyRoute = require("./Routes/KeyRoute");
+
 //=========================================================
 //All Middlewares here
 //=========================================================
@@ -59,8 +68,13 @@ app.get("/", (req, res) => {
   res
     .status(200)
     .send(
-      " <br/><center><h3>The College Situation API</h3> <small>Version 1.0 <br/> <br/>Favour Ori & Franklyn Nwanze</small> </center>"
+      " <br/><center><h3>The College Situation API</h3> <small>Version 1.0 <br/> <br/>Favour Ori & Franklin Nwanze</small> </center>"
     );
+});
+
+//default landing:
+app.get("/apidoc", (req, res) => {
+  res.sendFile('public/apidoc');
 });
 
 //Welcome Route
@@ -84,6 +98,15 @@ app.use("/api/v1/student", StudentProfileRoute);
 
 //scholarship endpoint
 app.use("/api/v1/scholarship", ScholarshipRoute);
+
+//subscription endpoint
+app.use("/api/v1/subscription", SubscriptionRoute);
+
+//subscription endpoint
+app.use("/api/v1/payment", PaymentRoute);
+
+//key endpoint
+app.use("/api/v1/key", KeyRoute);
 
 //=========================================================
 //Running the server on Port 3000 default
