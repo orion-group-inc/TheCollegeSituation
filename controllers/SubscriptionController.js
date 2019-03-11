@@ -8,12 +8,16 @@ class SubscriptionController {
    * @apiGroup Subscription
    */
   static async getAllSubscriptions(req, res) {
-    Subscription.find().then(allSubscriptions => {
-      res.status(200).send({
-        success: true,
-        data: allSubscriptions
+    Subscription.find()
+      .then(allSubscriptions => {
+        res.status(200).send({
+          success: true,
+          data: allSubscriptions
+        });
+      })
+      .catch(err => {
+        res.status(400).send("An Error has occoured", err.message);
       });
-    });
   }
 
   /**
@@ -30,7 +34,10 @@ class SubscriptionController {
       name: req.body.name,
       price: req.body.price,
       duration: req.body.duration,
-
+      tag: req.body.tag,
+      desc: req.body.desc,
+      validity: req.body.validity,
+      
     });
 
     subscription
@@ -39,7 +46,7 @@ class SubscriptionController {
         res.status(200).send({ success: true, data: newSubscription });
       })
       .catch(err => {
-        res.status(400).send("An error occoured", err.message);
+        console.log("error", err.message);
       });
   }
 
