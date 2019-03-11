@@ -82,7 +82,7 @@ class PaymentController {
   }
 
  /**
-   * @api {post} /payment/verify verify Payment
+   * @api {post} /payment/verifyPayment verify Payment
    * @apiName VerifyPayment
    * @apiGroup Payment
    * @apiParam {String} invoice invoice number of the payment
