@@ -127,6 +127,7 @@ class PaymentController {
                 student.userSubscription = userSubscription;
                 await student.save();
                 let result = await newUserSubscription.save();
+                console.log(result);
                 if(result){
                   res.send({message: 'subscription successful', data: result})
                 }else{
@@ -138,7 +139,7 @@ class PaymentController {
             res.status(400).send({message: 'Couldnt find invoice'});
           }
         }catch(e){
-          res.status(400).send(e);
+          res.status(400).send(e.response);
         }
         
     }
