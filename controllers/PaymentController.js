@@ -107,39 +107,51 @@ class PaymentController {
               let userSubscription = await UserSubscription.findOne({authInfo: invoice.authInfo});
               let student = await Student.findOne({_id: invoice.authInfo});
               let subscription = await Subscription.findOne({_id: invoice.subscription});
+              if(invoice.transactionStatus == 'pending'){
+                if(userSubscription){
+                  // adds days to end Date of subscription
+                  userSubscription.endDate = moment(userSubscription.endDate).add(subscription.duration, 'days');
+                  student.userSubscription = userSubscription;
+                  await student.save();
+                  
 
-              if(userSubscription){
-                // adds days to end Date of subscription
-                userSubscription.endDate = moment(userSubscription.endDate).add(subscription.duration, 'days');
-                student.userSubscription = userSubscription;
-                await student.save();
-                let updatedUserSubscription = await userSubscription.save();
-                
-                res.send({message: 'Subscription successully updated', data: updatedUserSubscription});
-              }else{
+                  let updatedUserSubscription = await userSubscription.save();
+                  invoice.transactionStatus = 'completed';
+                  await invoice.save();
 
-                // creates a new subscription for user
-                let newUserSubscription = new UserSubscription({
-                    authInfo: invoice.authInfo,
-                    subscription: invoice.subscription,
-                    endDate: moment().add(subscription.duration, 'days')
-                });
-                student.userSubscription = userSubscription;
-                await student.save();
-                let result = await newUserSubscription.save();
-                console.log(result);
-                if(result){
-                  res.send({message: 'subscription successful', data: result})
+                  res.send({message: 'Subscription successully updated', data: updatedUserSubscription});
                 }else{
-                  res.status(400).send({message: 'subscription failed'})
+  
+                  // creates a new subscription for user
+                  let newUserSubscription = new UserSubscription({
+                      authInfo: invoice.authInfo,
+                      subscription: invoice.subscription,
+                      endDate: moment().add(subscription.duration, 'days')
+                  });
+  
+                  student.userSubscription = userSubscription;
+                  await student.save();
+                  let result = await newUserSubscription.save();
+                  console.log(result);
+                  if(result){
+                    invoice.transactionStatus = 'completed';
+                    await invoice.save();
+                    res.send({message: 'subscription successful', data: result})
+                  }else{
+                    res.status(400).send({message: 'subscription failed'})
+                  }
                 }
+              }else{
+                res.status(400).send({ status: false, message: 'Transaction has been verified already'})
               }
+              
             }
           }else{
             res.status(400).send({message: 'Couldnt find invoice'});
           }
         }catch(e){
-          res.status(400).send(e.response);
+          console.log(e);
+          res.status(400).send(e.response.data);
         }
         
     }
