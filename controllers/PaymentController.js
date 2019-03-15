@@ -126,13 +126,14 @@ class PaymentController {
                   let newUserSubscription = new UserSubscription({
                       authInfo: invoice.authInfo,
                       subscription: invoice.subscription,
+                      startDate: moment(),
                       endDate: moment().add(subscription.duration, 'days')
                   });
   
                   student.userSubscription = userSubscription;
                   await student.save();
                   let result = await newUserSubscription.save();
-                  console.log(result);
+                  
                   if(result){
                     invoice.transactionStatus = 'completed';
                     await invoice.save();
