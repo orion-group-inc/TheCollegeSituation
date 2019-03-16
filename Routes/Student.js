@@ -11,10 +11,12 @@ const StudentController = require('./../controllers/StudentController');
 const StudentValidator = require('./../validations/StudentValidator');
 
 const {registerStudent, loginStudent} = AuthController;
-const {getRegisteredStudents} = StudentController;
+const {getRegisteredStudents, getStudentSubscription} = StudentController;
 const {validateStudent, validateStudentLogin}  = StudentValidator;
 
 routes.get("/registeredStudents",getRegisteredStudents);
+
+routes.get("/subscription/:id",getStudentSubscription);
 
 routes.post("/register",validateStudent, registerStudent);
 

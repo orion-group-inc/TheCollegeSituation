@@ -107,6 +107,7 @@ class PaymentController {
               let userSubscription = await UserSubscription.findOne({authInfo: invoice.authInfo});
               let student = await Student.findOne({_id: invoice.authInfo});
               let subscription = await Subscription.findOne({_id: invoice.subscription});
+              
               if(invoice.transactionStatus == 'pending'){
                 if(userSubscription){
                   // adds days to end Date of subscription
