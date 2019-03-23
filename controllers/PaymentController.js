@@ -124,8 +124,9 @@ class PaymentController {
                   userSubscription.endDate = moment(userSubscription.endDate).add(subscription.duration, 'days');
                   student.userSubscription = userSubscription;
                   await student.save();
-                
-                  res.send({message: 'Subscription successully updated', data: updatedUserSubscription});
+                  invoice.transactionStatus = 'completed';
+                  await invoice.save();
+                  res.send({message: 'Subscription successully updated', data: userSubscription});
                 }else{
   
                   // creates a new subscription for user
@@ -158,7 +159,7 @@ class PaymentController {
           res.status(400).send({ message: "Couldnt find invoice" });
         }
       } catch (e) {
-        // console.log(e.response);
+        
         res.status(400).send(e.response.data);
       }
     }
