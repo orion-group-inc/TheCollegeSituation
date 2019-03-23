@@ -158,7 +158,8 @@ class PaymentController {
           res.status(400).send({ message: "Couldnt find invoice" });
         }
       } catch (e) {
-        res.status(400).send(e);
+        // console.log(e.response);
+        res.status(400).send(e.response.data);
       }
     }
   }
