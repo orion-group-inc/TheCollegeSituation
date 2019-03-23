@@ -41,26 +41,36 @@ class PaymentController {
    *
    */
   static async createPayment(req, res) {
-    let payment = new Payment({
-      authInfo: req.body.authInfo,
-      subscription: req.body.subscription,
-      invoice: generateInvoice()
-    });
-
-    payment
-      .save()
-      .then(newPayment => {
-        Payment.findOne({ _id: newPayment._id })
-          .populate("authInfo", "-password")
-          .populate("subscription")
-          .exec()
-          .then(refPayment => {
-            res.status(200).send({ success: true, data: refPayment });
-          });
-      })
-      .catch(err => {
-        res.status(400).send("An error occoured", err.message);
+    try{
+      let subscription = await Subscription.findOne({_id: req.body.subscription});
+      if(!subscription) res.status(400).send({status: 'failed', message: "Subscription does not exist"});
+      let student = await Student.findOne({_id: req.body.authInfo});
+      if(!student) res.status(400).send({status: 'failed', message: "Student does not exist"});
+          
+      let payment = new Payment({
+        authInfo: req.body.authInfo,
+        subscription: req.body.subscription,
+        invoice: generateInvoice()
       });
+
+      payment
+        .save()
+        .then(newPayment => {
+          Payment.findOne({ _id: newPayment._id })
+            .populate("authInfo", "-password")
+            .populate("subscription")
+            .exec()
+            .then(refPayment => {
+              res.status(200).send({ success: true, data: refPayment });
+            });
+        })
+        .catch(err => {
+          res.status(400).send("An error occoured", err.message);
+        });
+    }catch(e){
+      res.status(400).send({status: 'failed', message: "Student or Subscription doesnt exists"});
+    }
+  
   }
 
   /**
@@ -100,7 +110,7 @@ class PaymentController {
         key.live === false
           ? key.paystackTestSecretKey
           : key.paystackLiveSecretKey;
-
+      
       try {
         let invoice = await Payment.findOne({ invoice: req.body.invoice });
         if (invoice) {
@@ -126,6 +136,7 @@ class PaymentController {
                   await student.save();
                   invoice.transactionStatus = 'completed';
                   await invoice.save();
+                  await userSubscription.save();
                   res.send({message: 'Subscription successully updated', data: userSubscription});
                 }else{
   
@@ -137,11 +148,12 @@ class PaymentController {
                       endDate: moment().add(subscription.duration, 'days')
                   });
   
-                  student.userSubscription = userSubscription;
-                  await student.save();
+                 
 
                   let result = await newUserSubscription.save();
-                  
+                  student.userSubscription = result;
+                  await student.save();
+
                   if(result){
                     invoice.transactionStatus = 'completed';
                     await invoice.save();
@@ -159,7 +171,7 @@ class PaymentController {
           res.status(400).send({ message: "Couldnt find invoice" });
         }
       } catch (e) {
-        
+        // console.log(e);
         res.status(400).send(e.response.data);
       }
     }
