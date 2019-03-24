@@ -17,18 +17,25 @@ class PaymentValidator {
   static async validatePayment(req, res, next) {
     req.check('authInfo', 'authInfo is required').notEmpty().trim();
 
-    // req.checkBody('authInfo', 'Student not found').custom(async (value) => {
-    //     let result = await Student.findOne({_id: value});
-
-    //     return result ? false : false;
-    // })
+    req.checkBody('authInfo', 'Student not found').custom(async (value) => {
+        try{
+            let result = await Student.findOne({_id: value});
+            return result ? false : false;
+        }catch(e){
+            return false;
+        }
+        
+    })
     
     req.check('subscription', 'subscription is required').notEmpty().trim()
-        // .custom(async (value) => {
-            
-        //     let result = await Subscription.findOne({_id: value});
-        //     return result ? true : false;
-        // }).withMessage('Subscription does not exist');
+        .custom(async (value) => {
+            try{
+                let result = await Subscription.findOne({_id: value});
+                return result ? true : false;
+            }catch(e){
+                return false;
+            }
+        }).withMessage('Subscription does not exist');
     
     const errors = req.validationErrors();
     

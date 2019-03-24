@@ -46,7 +46,39 @@ class PaymentController {
       if(!subscription) res.status(400).send({status: 'failed', message: "Subscription does not exist"});
       let student = await Student.findOne({_id: req.body.authInfo});
       if(!student) res.status(400).send({status: 'failed', message: "Student does not exist"});
+      UserSubscription.findOne({authInfo: req.body.authInfo})
+      .then(async (userSubscription) => {
+        
+        if(subscription.tag == 'free'){
+          if(userSubscription){
+             // adds days to end Date of subscription
+             userSubscription.endDate = moment(userSubscription.endDate).add(subscription.duration, 'days');
+             student.userSubscription = userSubscription;
+             await student.save();
+             await userSubscription.save();
+             res.send({message: 'Subscription successully updated', data: userSubscription});
+          }else{
+            // creates a new subscription for user
+            let newUserSubscription = new UserSubscription({
+              authInfo: req.body.authInfo,
+              subscription: req.body.subscription,
+              startDate: moment(),
+              endDate: moment().add(subscription.duration, 'days')
+          });
+  
           
+  
+            let result = await newUserSubscription.save();
+            student.userSubscription = result;
+            await student.save();
+            res.send({message: 'subscription successful', data: result})
+          }
+          
+        }
+      }).catch(err =>{
+        res.status(400).send({status: 'failed', message: "Student or Subscription doesnt exists"});
+      })
+      
       let payment = new Payment({
         authInfo: req.body.authInfo,
         subscription: req.body.subscription,
