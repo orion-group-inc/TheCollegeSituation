@@ -45,15 +45,21 @@ class PaymentController {
       let subscription = await Subscription.findOne({_id: req.body.subscription});
       if(!subscription) res.status(400).send({status: 'failed', message: "Subscription does not exist"});
       let student = await Student.findOne({_id: req.body.authInfo});
+      
       if(!student) res.status(400).send({status: 'failed', message: "Student does not exist"});
       UserSubscription.findOne({authInfo: req.body.authInfo})
       .then(async (userSubscription) => {
         
         if(subscription.tag == 'free'){
+          if(student.hasAppliedFreeSubscription){
+            
+            res.status(400).send({status: 'failed', message: "Student has already used free tier"});
+          }
           if(userSubscription){
              // adds days to end Date of subscription
              userSubscription.endDate = moment(userSubscription.endDate).add(subscription.duration, 'days');
              student.userSubscription = userSubscription;
+             student.hasAppliedFreeSubscription = true;
              await student.save();
              await userSubscription.save();
              res.send({message: 'Subscription successully updated', data: userSubscription});
@@ -66,10 +72,9 @@ class PaymentController {
               endDate: moment().add(subscription.duration, 'days')
           });
   
-          
-  
             let result = await newUserSubscription.save();
             student.userSubscription = result;
+            student.hasAppliedFreeSubscription = true;
             await student.save();
             res.send({message: 'subscription successful', data: result})
           }
@@ -203,7 +208,7 @@ class PaymentController {
           res.status(400).send({ message: "Couldnt find invoice" });
         }
       } catch (e) {
-        // console.log(e);
+        
         res.status(400).send(e.response.data);
       }
     }

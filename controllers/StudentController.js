@@ -34,7 +34,8 @@ class StudentController{
                         expired: remainingDays < 1,
                         remainingDays,
                         startDate: student.userSubscription.startDate,
-                        endDate: student.userSubscription.endDate
+                        endDate: student.userSubscription.endDate,
+                        hasAppliedFreeSubscription: student.hasAppliedFreeSubscription
                     }
                     res.status(200).send({
                         success: true,
