@@ -7,8 +7,6 @@ class HousingController {
    * @apiName GetAdvices
    * @apiGroup Housing
    */
-
-  //getting all Houses
   static async getHouses(req, res) {
     House.find()
       .populate("owner")
@@ -44,10 +42,9 @@ class HousingController {
       });
   }
 
-  //creating a new House
   /**
-   * @api {post} /housing/createHouse Create new House
-   * @apiName CreateHouses
+   * @api {post} /housing/createHouse Create a new House
+   * @apiName Create Houses
    * @apiGroup Housing
    * @apiParam {String} type Type of house
    * @apiParam {Int} bedrooms Number of bedrooms in the house
@@ -68,7 +65,6 @@ class HousingController {
    * @apiParam {String} owner id of the owner
    * @apiParam {String} address
    */
-
   static async createHouse(req, res) {
     let house = new House({
       //Body of the house data

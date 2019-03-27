@@ -4,7 +4,7 @@ const StoryCategory = require("./../models/StoryCategory");
 
 class StoryController {
   /**
-   * @api {get} /story/getAllStories Get story
+   * @api {get} /story/getAllStories Get stories
    * @apiName Get Stories
    * @apiGroup Story
    */
@@ -22,7 +22,7 @@ class StoryController {
 
   //creating new story category
   /**
-   * @api {post} /story/createNewStory Post story
+   * @api {post} /story/createNewStory Create story
    * @apiName Create Story
    * @apiGroup Story
    * @apiParam {String} title Title of story
