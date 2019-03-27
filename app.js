@@ -8,8 +8,16 @@ const app = express();
 //=========================================================
 //Importing All Routes
 //=========================================================
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.json({limit: '50mb'}));
+// app.use(express.urlencoded({limit: '50mb', extended: false }));
+
+
+//=========================================================
+//All Middlewares here
+//=========================================================
+// Tell the bodyparser middleware to accept more data
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 //allowing for serving static files
 app.use(express.static("public"));
@@ -49,11 +57,6 @@ let StoryCategoryRoute = require("./Routes/StoryCategoryRoute");
 //importing the story route
 let StoryRoute = require("./Routes/StoryRoute");
 
-//=========================================================
-//All Middlewares here
-//=========================================================
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 //=========================================================
 //All Routes (Endpoints) getting used here

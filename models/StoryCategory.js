@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 let StoryCategorySchema = mongoose.Schema({
   name: String,
+  stories: [ {type: mongoose.Schema.Types.ObjectId, ref: "Story" }],
   dateOfCreation: { type: Date, default: Date.now }
 });
 

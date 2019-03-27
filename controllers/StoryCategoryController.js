@@ -2,6 +2,11 @@
 const StoryCategory = require("./../models/StoryCategory");
 
 class StoryCategoryController {
+  /**
+   * @api {get} /storyCategory/getAllStoryCategories get all categories
+   * @apiName Get All Story Categories
+   * @apiGroup StoryCategory
+   */
   static async getAllStoryCategories(req, res) {
     StoryCategory.find().then(allStoryCategories => {
       res.status(200).send({
@@ -12,7 +17,12 @@ class StoryCategoryController {
   }
 
   //creating new story category
-
+  /**
+   * @api {post} /storyCategory/createNewStoryCategory create story category
+   * @apiName Create Story category
+   * @apiGroup StoryCategory
+   * @apiParam {String} name Name of story category
+   */
   static async createNewStoryCategory(req, res) {
     let storyCategory = new StoryCategory({
       name: req.body.name

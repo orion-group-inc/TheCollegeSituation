@@ -3,7 +3,7 @@ const Advice = require("../models/Advice");
 
 class AdviceController {
   /**
-   * @api {get} /advice/allAdvices Get students information
+   * @api {get} /advice/allAdvices Get all advices
    * @apiName GetAdvices
    * @apiGroup Advices
    */

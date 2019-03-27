@@ -9,8 +9,10 @@ const AdviceController = require("./../controllers/AdviceController");
 
 const { getAdvices, createAdvice } = AdviceController;
 
-routes.get("/allAdvices", getAdvices);
+const verifyToken = require('./../middleware/verifyToken');
 
-routes.post("/createAdvice", createAdvice);
+routes.get("/allAdvices", verifyToken, getAdvices);
+
+routes.post("/createAdvice",verifyToken, createAdvice);
 
 module.exports = routes;

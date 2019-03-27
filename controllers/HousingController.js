@@ -24,7 +24,11 @@ class HousingController {
   }
 
   //getting single house wih ID
-
+  /**
+   * @api {post} /housing/getSingleHouse/:id Get single house
+   * @apiName CreateHouses
+   * @apiGroup Housing
+   * */
   static async getSingleHouse(req, res) {
     let id = req.params.id;
     House.findOne({ _id: id })
@@ -45,8 +49,24 @@ class HousingController {
    * @api {post} /housing/createHouse Create new House
    * @apiName CreateHouses
    * @apiGroup Housing
-   * @apiParam {String} _id Unique ID of each House
-   
+   * @apiParam {String} type Type of house
+   * @apiParam {Int} bedrooms Number of bedrooms in the house
+   * @apiParam {Int} bathrooms Number of bathrooms in the house
+   * @apiParam {Number} price Number of price in the house
+   * @apiParam {String} availability  is the house availabile?
+   * @apiParam {String} catFriendly 
+   * @apiParam {String} dogFriendly
+   * @apiParam {String} laundryType
+   * @apiParam {String} parkingType
+   * @apiParam {String} heatingType
+   * @apiParam {String} acType
+   * @apiParam {String} city
+   * @apiParam {String} state
+   * @apiParam {String} zip
+   * @apiParam {String} mainPhoto a main photo of the house in base64
+   * @apiParam {String} photos an array of base64 photos of different views of the house
+   * @apiParam {String} owner id of the owner
+   * @apiParam {String} address
    */
 
   static async createHouse(req, res) {

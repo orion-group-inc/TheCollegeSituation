@@ -9,16 +9,17 @@ const Student = require("../models/Student");
 const AuthController = require('./../controllers/AuthController');
 const StudentController = require('./../controllers/StudentController');
 const StudentValidator = require('./../validations/StudentValidator');
+const verifyToken = require('./../middleware/verifyToken');
 
 const {registerStudent, loginStudent} = AuthController;
 const {getRegisteredStudents, getStudentSubscription} = StudentController;
 const {validateStudent, validateStudentLogin}  = StudentValidator;
 
-routes.get("/registeredStudents",getRegisteredStudents);
+routes.get("/registeredStudents", verifyToken, getRegisteredStudents);
 
-routes.get("/subscription/:id",getStudentSubscription);
+routes.get("/subscription/:id",verifyToken, getStudentSubscription);
 
-routes.post("/register",validateStudent, registerStudent);
+routes.post("/register", validateStudent, registerStudent);
 
 routes.post("/login",validateStudentLogin, loginStudent);
 

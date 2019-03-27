@@ -6,14 +6,15 @@ const routes = express.Router();
 //============================================
 
 const StoryCategoryController = require("./../controllers/StoryCategoryController");
+const verifyToken = require('./../middleware/verifyToken');
 
 const {
   getAllStoryCategories,
   createNewStoryCategory
 } = StoryCategoryController;
 
-routes.get("/getAllStoryCategories", getAllStoryCategories);
+routes.get("/getAllStoryCategories",verifyToken, getAllStoryCategories);
 
-routes.post("/createNewStoryCategory", createNewStoryCategory);
+routes.post("/createNewStoryCategory", verifyToken, createNewStoryCategory);
 
 module.exports = routes;

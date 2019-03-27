@@ -20,7 +20,7 @@ class KeyController {
   /**
    * @api {post} /key/createKey Create a new key
    * @apiName Createkey
-   * @apiGroup key
+   * @apiGroup Keys
    * @apiParam {Boolean} live indicates if payment is live or on test
    * @apiParam {String} PaystackTestSecretKey Paystack test secret key
    * @apiParam {String} PaystackTestPublicKey Paystack test public key

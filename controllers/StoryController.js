@@ -1,7 +1,13 @@
 //Importing story category Model
 const Story = require("./../models/Story");
+const StoryCategory = require("./../models/StoryCategory");
 
 class StoryController {
+  /**
+   * @api {get} /story/getAllStories Get story
+   * @apiName Get Stories
+   * @apiGroup Story
+   */
   static async getAllStories(req, res) {
     Story.find()
       .populate("category")
@@ -15,7 +21,17 @@ class StoryController {
   }
 
   //creating new story category
-
+  /**
+   * @api {post} /story/createNewStory Post story
+   * @apiName Create Story
+   * @apiGroup Story
+   * @apiParam {String} title Title of story
+   * @apiParam {String} description Description of story
+   * @apiParam {String} featured  is the story featured?
+   * @apiParam {String} category id of the story category
+   * @apiParam {String} owner id of the student
+   * @apiParam {String} photo base64 string of image
+   */
   static async createNewStory(req, res) {
     let story = new Story({
       title: req.body.title,
@@ -25,20 +41,25 @@ class StoryController {
       category: req.body.category,
       owner: req.body.owner
     });
-
-    story
-      .save()
-
-      .then(newstory => {
-        res.status(200).send({ success: true, data: newstory });
-      })
-      .catch(err => {
-        res.status(400).send("An error occoured", err.message);
-      });
+    try{
+      let storyCategory = await StoryCategory.findOne({_id: req.body.category});
+      let newStory = await story.save();
+      storyCategory.stories.push(newStory);
+      await storyCategory.save();
+      res.send({success: true, data: newStory})
+    }catch(err){
+      res.status(400).send("Category does not exist", err.message);
+    }
+    
   }
 
-  //getting single scholarshipwih ID
-
+  
+  //getting single story with ID
+  /**
+   * @api {get} /story/getSingleStory/:id Get single story
+   * @apiName Get Single Story
+   * @apiGroup Story
+   */
   static async getSingleStory(req, res) {
     let id = req.params.id;
     Story.findOne({ _id: id })

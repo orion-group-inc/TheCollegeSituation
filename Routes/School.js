@@ -28,6 +28,7 @@ const upload = multer({ storage });
 
 const SchoolController = require("./../controllers/SchoolController");
 const SchoolValidator = require("./../validations/SchoolValidator");
+const verifyToken = require('./../middleware/verifyToken');
 
 const {
   getSchools,
@@ -39,11 +40,11 @@ const {
 } = SchoolController;
 const { validateSchool } = SchoolValidator;
 
-routes.get("/allSchools", getSchools);
+routes.get("/allSchools", verifyToken, getSchools);
 
-routes.post("/createSchool",upload.single("photo"), validateSchool, createSchool);
+routes.post("/createSchool", verifyToken, upload.single("photo"), validateSchool, createSchool);
 
-routes.get("/migrateSchool/:id", migrateSchool);
+routes.get("/migrateSchool/:id", verifyToken, migrateSchool);
 
 routes.post(
   "/createTempSchool",

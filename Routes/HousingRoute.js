@@ -4,10 +4,6 @@ const multer = require("multer");
 const fs = require('fs');
 const dest = "public/houses/";
 
-// if (!fs.existsSync(dest)){
-//     fs.mkdirSync(dest);
-// }
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, dest);
@@ -28,12 +24,13 @@ const House = require("../models/Housing");
 
 const HousingController = require("./../controllers/HousingController");
 const HousingValidator = require("./../validations/HousingValidator");
+const verifyToken = require('./../middleware/verifyToken');
 
 const { getHouses, createHouse, getSingleHouse } = HousingController;
 
 const { validateHousing} = HousingValidator;
 
-routes.get("/allHouses", getHouses);
-routes.get("/getSingleHouse/:id", getSingleHouse);
-routes.post("/createHouse", upload.any(), validateHousing, createHouse);
+routes.get("/allHouses",verifyToken, getHouses);
+routes.get("/getSingleHouse/:id",verifyToken, getSingleHouse);
+routes.post("/createHouse",verifyToken, validateHousing, createHouse);
 module.exports = routes;

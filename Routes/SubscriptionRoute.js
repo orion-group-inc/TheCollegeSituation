@@ -6,6 +6,7 @@ const routes = express.Router();
 //============================================
 const Subscription = require("../models/Subscription");
 const SubscriptionController = require("./../controllers/SubscriptionController");
+const verifyToken = require('./../middleware/verifyToken');
 
 const {
   getAllSubscriptions,
@@ -13,8 +14,8 @@ const {
   getSingleSubscription
 } = SubscriptionController;
 
-routes.get("/getAllSubscriptions", getAllSubscriptions);
-routes.post("/createSubscription", createSubscription);
-routes.get("/getSingleSubscription/:id", getSingleSubscription);
+routes.get("/getAllSubscriptions",verifyToken, getAllSubscriptions);
+routes.post("/createSubscription",verifyToken, createSubscription);
+routes.get("/getSingleSubscription/:id",verifyToken, getSingleSubscription);
 
 module.exports = routes;

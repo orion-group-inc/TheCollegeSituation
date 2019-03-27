@@ -17,7 +17,21 @@ class ScholarshipController {
   }
 
   //creating scholarship
-
+  /**
+   * @api {post} /scholarship/createScholarship Create new Scholarship
+   * @apiName CreateScholarship
+   * @apiGroup Scholarships
+   * @apiParam {String} title title of the scholarship
+   * @apiParam {String} photo image of the scholarship
+   * @apiParam {String} dueDate 
+   * @apiParam {Number} amount
+   * @apiParam {String} state
+   * @apiParam {String} status
+   * @apiParam {String} educationalLevel
+   * @apiParam {String} description
+   * @apiParam {String} featured
+   * @apiParam {String} link
+   */
   static async createScholarship(req, res) {
     let scholarship = new Scholarship({
       title: req.body.title,
@@ -43,7 +57,11 @@ class ScholarshipController {
   }
 
   //getting single scholarshipwih ID
-
+  /**
+   * @api {get} /scholarship/getSingleScholarship/:id Get a single scholarship with id
+   * @apiName GetSingleScholarship
+   * @apiGroup Scholarships
+   */
   static async getSingleScholarship(req, res) {
     let id = req.params.id;
     Scholarship.findOne({ _id: id })

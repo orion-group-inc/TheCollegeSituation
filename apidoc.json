@@ -1,7 +1,7 @@
 {
     "name": "The College Situation",
     "version": "1.0.0",
-    "description": "API documentation for College Situation",
+    "description": "API documentation for College Situation, for secured routes always add x-access-token to the headers",
     "title": "Consumable API's",
     "url" : "https://thecollegesituation.herokuapp.com/api/v1"
   }

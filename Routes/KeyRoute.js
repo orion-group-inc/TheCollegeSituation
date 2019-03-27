@@ -6,6 +6,7 @@ const routes = express.Router();
 //============================================
 const Key = require("../models/Key");
 const KeyController = require("./../controllers/KeyController");
+const verifyToken = require('./../middleware/verifyToken');
 
 const {
   getAllKeys,
@@ -14,9 +15,9 @@ const {
   deleteSingleKey
 } = KeyController;
 
-routes.get("/getAllKeys", getAllKeys);
-routes.post("/createKey", createKey);
-routes.delete("/deleteSingleKey/:id", deleteSingleKey);
-routes.get("/getSingleKey/:id", getSingleKey);
+routes.get("/getAllKeys", verifyToken, getAllKeys);
+routes.post("/createKey", verifyToken, createKey);
+routes.delete("/deleteSingleKey/:id", verifyToken, deleteSingleKey);
+routes.get("/getSingleKey/:id", verifyToken, getSingleKey);
 
 module.exports = routes;

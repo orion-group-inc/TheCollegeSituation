@@ -3,7 +3,7 @@ const Subscription = require("./../models/Subscription");
 
 class SubscriptionController {
   /**
-   * @api {get} /Subscription/allSubscriptions Get a list of Subscriptions
+   * @api {get} /Subscription/allSubscriptions Get all subscriptions
    * @apiName Get List of Subscriptions
    * @apiGroup Subscription
    */
@@ -21,9 +21,9 @@ class SubscriptionController {
   }
 
   /**
-   * @api {post} /subscription/createSubscription Create a new subscripton
+   * @api {post} /subscription/createSubscription Create a subscription
    * @apiName Create Subscripton
-   * @apiGroup Subscripton
+   * @apiGroup Subscription
    * @apiParam {String} name name of the subscription
    * @apiParam {Number} Price of the subscription
    * @apiParam {Number} duration of the subscription in days
@@ -51,9 +51,9 @@ class SubscriptionController {
   }
 
   /**
-   * @api {post} /subscription/getSingleSubscription/:id get a single subscripton
+   * @api {post} /subscription/getSingleSubscription/:id Get single subscription
    * @apiName Get Single Subscripton
-   * @apiGroup Subscripton
+   * @apiGroup Subscription
    * @apiParam {String} id unique id of the subscription
    *
    */

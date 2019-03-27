@@ -7,6 +7,7 @@ const routes = express.Router();
 const StudentProfile = require("../models/StudentProfile");
 
 const StudentProfileController = require("./../controllers/StudentProfileController");
+const verifyToken = require('./../middleware/verifyToken');
 
 const {
   getProfiles,
@@ -14,7 +15,7 @@ const {
   getSingleProfile
 } = StudentProfileController;
 
-routes.get("/allProfiles", getProfiles);
-routes.get("/getSingleProfile/:id", getSingleProfile);
+routes.get("/allProfiles", verifyToken, getProfiles);
+routes.get("/getSingleProfile/:id", verifyToken, getSingleProfile);
 routes.post("/createProfile", createProfile);
 module.exports = routes;

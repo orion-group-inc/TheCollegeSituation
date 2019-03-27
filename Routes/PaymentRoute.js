@@ -7,7 +7,7 @@ const routes = express.Router();
 const Payment = require("../models/Payment");
 const PaymentController = require("./../controllers/PaymentController");
 const PaymentValidator = require("./../validations/PaymentValidator");
-
+const verifyToken = require('./../middleware/verifyToken');
 
 const {
   getAllPayments,
@@ -19,9 +19,9 @@ const {
 
 const {validatePayment} = PaymentValidator;
 
-routes.get("/getAllPayments", getAllPayments);
-routes.post("/createPayment", validatePayment, createPayment);
-routes.get("/getSinglePayment/:id", getSinglePayment);
-routes.post("/verifyPayment", verifyPayment);
+routes.get("/getAllPayments", verifyToken, getAllPayments);
+routes.post("/createPayment", verifyToken, validatePayment, createPayment);
+routes.get("/getSinglePayment/:id", verifyToken, getSinglePayment);
+routes.post("/verifyPayment", verifyToken, verifyPayment);
 
 module.exports = routes;
