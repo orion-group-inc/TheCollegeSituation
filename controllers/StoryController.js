@@ -1,6 +1,7 @@
 //Importing story category Model
 const Story = require("./../models/Story");
 const StoryCategory = require("./../models/StoryCategory");
+const base = 'https://collegesituation.firebrains.xyz/';
 
 class StoryController {
   /**
@@ -13,6 +14,10 @@ class StoryController {
       .populate("category")
       .populate("owner")
       .then(allStories => {
+        allStories = allStories.map((item, index) => {
+          item.photo = base+item.photo;
+          return item;
+        })
         res.status(200).send({
           success: true,
           data: allStories
@@ -66,6 +71,7 @@ class StoryController {
       .populate("category")
       .populate("owner")
       .then(singleStory => {
+        singleStory.photo = base+singleStory.photo;
         res.status(200).send({
           success: true,
           data: singleStory

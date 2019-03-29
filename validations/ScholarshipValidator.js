@@ -1,6 +1,5 @@
 const Helpers = require('./../helpers/helper');
 const fs = require('fs');
-
 const {extractErrors} = Helpers;
 
 const savedDestination = 'scholarships/';

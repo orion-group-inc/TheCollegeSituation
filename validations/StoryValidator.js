@@ -1,9 +1,9 @@
 const Helpers = require('./../helpers/helper');
 const fs = require('fs');
 const path = require("path");
-const {extractErrors} = Helpers;
-console.log(path.resolve(__dirname, '..'));
 const base = path.resolve(__dirname, '..');
+const {extractErrors} = Helpers;
+
 const savedDestination = 'stories/';
 
 const isBase64 = require('is-base64');

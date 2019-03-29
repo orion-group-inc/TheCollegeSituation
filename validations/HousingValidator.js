@@ -1,13 +1,14 @@
 const Helpers = require('./../helpers/helper');
 const fs = require('fs');
-
+const path = require("path");
+const base = path.resolve(__dirname, '..');
 const {extractErrors} = Helpers;
 
 const isBase64 = require('is-base64');
 
 let extension = 'jpg';
 
-const dest = "public/schools/";
+const dest = "/public/schools/";
 
 
 /**
@@ -69,13 +70,13 @@ class HousingValidator {
         let base64Data = req.body.mainPhoto;
         extension = '.'+base64Data.substring("data:image/".length, base64Data.indexOf(";base64"));
         base64Data = base64Data.replace(/^data:image\/.*;base64,/,"");
-        fs.writeFileSync(dest+filename+extension, base64Data, 'base64', function(err) {
+        fs.writeFileSync(base+dest+filename+extension, base64Data, 'base64', function(err) {
             if (err) console.log(err);           
         });
         
         try{
-            fs.readFileSync(dest+filename+extension);
-            mainPhoto = dest+filename+extension;
+            fs.readFileSync(base+dest+filename+extension);
+            mainPhoto = base+dest+filename+extension;
             status = true;
         }catch(err){
             console.log(err.response);
@@ -97,13 +98,13 @@ class HousingValidator {
                 let filename = Math.random().toString(36).substring(7)+ Date.now();
                 let extension = '.'+base64Data.substring("data:image/".length, base64Data.indexOf(";base64"));
                 base64Data = base64Data.replace(/^data:image\/.*;base64,/,"");
-                fs.writeFileSync(dest+filename+extension, base64Data, 'base64', function(err) {
+                fs.writeFileSync(base+dest+filename+extension, base64Data, 'base64', function(err) {
                     if (err) console.log(err);           
                 });
                 
                 try{
-                    fs.readFileSync(dest+filename+extension);
-                    photos.push(dest+filename+extension);
+                    fs.readFileSync(base+dest+filename+extension);
+                    photos.push(base+dest+filename+extension);
                     
                 }catch(err){
                     console.log(err.response);
@@ -139,12 +140,12 @@ class HousingValidator {
     }
 
     photos = photos.map((item) => {
-        return item.replace('public/','');
+        return item.replace(base+'/public/','');
     });
     
     req.body.photos = photos;
 
-    req.body.mainPhoto = mainPhoto.replace('public/', '');
+    req.body.mainPhoto = mainPhoto.replace(base+'/public/', '');
     return next();
   }
 

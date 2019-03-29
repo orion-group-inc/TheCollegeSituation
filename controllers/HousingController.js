@@ -1,5 +1,6 @@
 //Importing Advice Model
 const House = require("../models/Housing");
+const base = 'https://collegesituation.firebrains.xyz/';
 
 class HousingController {
   /**
@@ -11,6 +12,13 @@ class HousingController {
     House.find()
       .populate("owner")
       .then(allHouses => {
+        allHouses = allHouses.map((item, index) => {
+          item.mainPhoto = base+item.mainPhoto;
+          item.photos = item.photos.map((item1, index1) => {
+            return base+item1;
+          })
+          return item;
+        })
         res.status(200).send({
           success: true,
           data: allHouses
