@@ -1,13 +1,15 @@
 const Helpers = require('./../helpers/helper');
 const fs = require('fs');
-
+const path = require("path");
 const {extractErrors} = Helpers;
-
+console.log(path.resolve(__dirname, '..'));
+const base = path.resolve(__dirname, '..');
 const savedDestination = 'stories/';
 
 const isBase64 = require('is-base64');
 
-const dest = "public/stories/";
+const dest = "/public/stories/";
+
 
 const filename = Math.random().toString(36).substring(7)+ Date.now();
 /**
@@ -37,13 +39,13 @@ class StoryValidator {
             let base64Data = req.body.photo;
             extension = '.'+base64Data.substring("data:image/".length, base64Data.indexOf(";base64"));
             base64Data = base64Data.replace(/^data:image\/.*;base64,/,"");
-            fs.writeFileSync(dest+filename+extension, base64Data, 'base64', function(err) {
+            fs.writeFileSync(base+dest+filename+extension, base64Data, 'base64', function(err) {
                 if (err) console.log(err);           
             });
             
             try{
-                fs.readFileSync(dest+filename+extension);
-                photo = dest+filename+extension;
+                fs.readFileSync(base+dest+filename+extension);
+                photo = base+dest+filename+extension;
                 status = true;
             }catch(err){
                 console.log(err.response);
@@ -56,8 +58,8 @@ class StoryValidator {
 
     if (errors) {
         if(photo){
-            fs.unlink(dest+filename+extension, () => {
-                console.log('deleted ' + dest+filename+extension);
+            fs.unlink(base+dest+filename+extension, () => {
+                console.log('deleted ' + base+dest+filename+extension);
             });
         }
         
