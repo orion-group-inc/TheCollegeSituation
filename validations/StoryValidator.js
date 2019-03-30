@@ -11,7 +11,7 @@ const isBase64 = require('is-base64');
 const dest = "/public/stories/";
 
 
-const filename = Math.random().toString(36).substring(7)+ Date.now();
+
 /**
  * Defines methods for validating school Register functions
  *
@@ -27,6 +27,7 @@ class StoryValidator {
   static validateStory(req, res, next) {
     let extension = 'jpg';
     let photo = null;
+    const filename = Math.random().toString(36).substring(7)+ Date.now();
     req.check('title', 'Title of story is required').notEmpty().trim();
     req.check('category', 'category is required').notEmpty().trim();
     req.check('description', 'Descripton is required').notEmpty().trim(); 
