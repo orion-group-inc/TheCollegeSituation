@@ -51,6 +51,7 @@ class StoryController {
       let newStory = await story.save();
       storyCategory.stories.push(newStory);
       await storyCategory.save();
+      newStory.photo = base+newStory.photo;
       res.send({success: true, data: newStory})
     }catch(err){
       res.status(400).send("Category does not exist", err.message);
