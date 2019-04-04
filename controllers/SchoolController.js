@@ -1,6 +1,7 @@
 //Importing School Model
 const School = require("./../models/School");
 const TempSchool = require("./../models/test/TempSchool");
+const base = 'https://collegesituation.firebrains.xyz/';
 
 class SchoolController {
   /**
@@ -8,9 +9,12 @@ class SchoolController {
    * @apiName GetSchools
    * @apiGroup School
    */
-
   static async getSchools(req, res) {
     School.find().then(allSchools => {
+      allSchools = allSchools.map((item, index) => {
+        item.photo = base+item.photo;
+        return item;
+      });
       res.status(200).send({
         success: true,
         data: allSchools
@@ -152,6 +156,10 @@ class SchoolController {
     school
       .save()
       .then(newSchool => {
+        newSchool = newSchool.map((item, index) => {
+          item.photo = base+item.photo;
+          return item;
+        })
         res.status(200).send({ success: true, data: newSchool });
       })
       .catch(err => {

@@ -40,6 +40,9 @@ class HousingController {
     House.findOne({ _id: id })
       .populate("owner")
       .then(singleHouse => {
+        singleHouse.photos = singleHouse.photos.map((item) => {
+          return base+item;
+        })
         res.status(200).send({
           success: true,
           data: singleHouse
@@ -104,6 +107,9 @@ class HousingController {
 
       .then(newHouse => {
         if (newHouse) {
+          newHouse.photos = newHouse.photos.map((item) => {
+            return base+item;
+          })
           res.status(200).send({
             success: true,
             data: newHouse
