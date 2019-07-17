@@ -3,14 +3,11 @@ node_js:
 - node
 script: echo "npm test temporarily disabled"
 env:
-- SERVER_IP_ADDRESS=144.217.5.76
+  - SERVER_IP_ADDRESS=198.100.155.30
 before_install:
-- openssl aes-256-cbc -K $encrypted_cbdba949eed5_key -iv $encrypted_cbdba949eed5_iv
-  -in deploy_key.enc -out deploy_key -d
-- openssl aes-256-cbc -K $encrypted_0c52ff39b1b3_key -iv $encrypted_0c52ff39b1b3_iv
-  -in deploy_key.enc -out ~/.ssh/id_rsa -d
-- eval "$(ssh-agent -s)"
-- chmod 600 ~/.ssh/id_rsa
-- echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- ssh root@144.217.5.76 "cd /var/www/TheCollegeSituation && git pull git@github.com:favourori/TheCollegeSituation.git
-  -f && npm install  && supervisorctl restart college && exit"
+  - openssl aes-256-cbc -K $encrypted_0c52ff39b1b3_key -iv $encrypted_0c52ff39b1b3_iv
+    -in deploy_key.enc -out ~/.ssh/id_rsa -d
+  - eval "$(ssh-agent -s)"
+  - chmod 600 ~/.ssh/id_rsa
+  - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - ssh root@198.100.155.30 "cd /var/www/college && git pull git@github.com:favourori/TheCollegeSituation.git -f && npm install  && supervisorctl restart college && exit"
