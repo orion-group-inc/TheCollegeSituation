@@ -1,5 +1,5 @@
 //Require all that's needed to power this App
-//adding a few documentations
+//adding a few documentation
 const express = require("express");
 const bodyParser = require("body-parser");
 const connection = require("./config/connection");
