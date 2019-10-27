@@ -1,9 +1,14 @@
 const Helpers = require('./../helpers/helper');
 const fs = require('fs');
-
+const path = require("path");
+const base = path.resolve(__dirname, '..');
 const {extractErrors} = Helpers;
 
-const savedDestination = 'schools/';
+const isBase64 = require('is-base64');
+
+let extension = 'jpg';
+
+const dest = "/public/schools/";
 
 /**
  * Defines methods for validating school Register functions
@@ -18,6 +23,8 @@ class SchoolValidator {
    * @param {callback} next
    */
   static validateSchool(req, res, next) {
+    let photo = null;
+  
     req.check('name', 'School Name is required').notEmpty().trim();
     req.check('desc', 'School Description is required').notEmpty().trim();
     req.check('population', 'Population is required').notEmpty().trim()
@@ -43,22 +50,36 @@ class SchoolValidator {
     req.check('city', 'city is required').notEmpty().trim()
     req.check('zip', 'zip code is required').notEmpty().trim()
     req.check('website', 'School website is required').notEmpty().trim();   
-    req.checkBody('photo', 'School Photo is required')
+    req.check('photo', 'School Photo is required')
     .custom((value) => {
-        if(req.file){
-            if(req.file.fieldname == 'photo'){
-                return true;
-            }
+        if(!isBase64(value,{ mime: true })){
+            return false;
         }
-        return false;
-    }); 
+        let filename = Math.random().toString(36).substring(7)+ Date.now();
+        let status = false;
+        let base64Data = req.body.photo;
+        extension = '.'+base64Data.substring("data:image/".length, base64Data.indexOf(";base64"));
+        base64Data = base64Data.replace(/^data:image\/.*;base64,/,"");
+        fs.writeFileSync(base+dest+filename+extension, base64Data, 'base64', function(err) {
+            if (err) console.log(err);           
+        });
+        
+        try{
+            fs.readFileSync(base+dest+filename+extension);
+            photo = base+dest+filename+extension;
+            status = true;
+        }catch(err){
+            console.log(err.response);
+        }
+        return status;
+    });
   
     const errors = req.validationErrors();
 
     if (errors) {
-        if(req.file){     
-                fs.unlink(req.file.path, () => {
-                  console.log('deleted ' + req.file.path);
+        if(photo){
+            fs.unlink(photo, () => {
+                console.log('deleted ' + photo);
             });
         }
         
@@ -69,8 +90,7 @@ class SchoolValidator {
       });
     }
     
-    
-    req.body.photo = savedDestination + req.file.filename;
+    req.body.photo = photo.replace(base+'/public/', '');
     return next();
   }
 
