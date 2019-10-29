@@ -25,6 +25,33 @@ class StoryController {
       });
   }
 
+  /**
+   * @api {get} /story/getMyStories Get My stories
+   * @apiName Get My Stories
+   * @apiGroup Story
+   */
+  static async getMyStories(req, res) {
+    let id = req.body.userId;
+    Story.find()
+      .populate('owner')
+      .populate('category')
+      .where('owner').equals(id)
+      
+      .then(allStories => {
+        allStories = allStories.map((item, index) => {
+          item.photo = base+item.photo;
+          return item;
+        })
+        res.status(200).send({
+          success: true,
+          data: allStories
+        });
+      })
+      .catch(err => {
+        res.status(400).send("Cant find Story", err.message);
+      });
+  }
+
   //creating new story category
   /**
    * @api {post} /story/createNewStory Create story
@@ -38,13 +65,14 @@ class StoryController {
    * @apiParam {String} photo base64 string of image
    */
   static async createNewStory(req, res) {
+
     let story = new Story({
       title: req.body.title,
       photo: req.body.photo,
       description: req.body.description,
       featured: req.body.featured,
       category: req.body.category,
-      owner: req.body.owner
+      owner: req.body.userId
     });
     try{
       let storyCategory = await StoryCategory.findOne({_id: req.body.category});
@@ -81,6 +109,32 @@ class StoryController {
       .catch(err => {
         res.status(400).send("An error occoured", err.message);
       });
+  }
+
+  //deleting single story with ID
+  /**
+   * @api {post} /story/singleStory/delete/:id Delete single story
+   * @apiName Delete Single story by Id
+   * @apiGroup Story
+   */
+  static async deleteSingleStory(req, res) {
+    let id = req.params.id;
+    try{
+      let story = await Story.findOne({_id: id});
+      if(story){
+        let storyCategory = await StoryCategory.findOne({_id: story.category});
+        storyCategory.stories = storyCategory.stories.filter((item, index) => {
+            return item != id;
+        })
+        await storyCategory.save();
+        await story.delete();
+      }
+
+      res.send({success: true, message: 'Deleted'})
+    }catch(err){
+      res.status(400).send("Could not delete story", err.message);
+    }
+
   }
 }
 

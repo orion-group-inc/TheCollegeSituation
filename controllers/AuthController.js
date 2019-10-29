@@ -64,10 +64,11 @@ class AuthController {
     let user = await Student.findOne({ email }).populate('userSubscription').populate('profile').exec();
     
     if(user){
+      const {firstName, email, _id, lastName} = user;
       let isPasswordValid = bcrypt.compareSync(password, user.password);
         if (isPasswordValid) {
           let token = jwt.sign(
-            { user },
+            { firstName, email, _id, lastName },
             process.env.JWT_SECRET,
             {
               expiresIn: 86400 // expires in 24 hours
