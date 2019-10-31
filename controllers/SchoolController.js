@@ -17,6 +17,7 @@ class SchoolController {
       });
       res.status(200).send({
         success: true,
+        count: allSchools.length,
         data: allSchools
       });
     });
