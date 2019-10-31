@@ -19,7 +19,7 @@ class SchoolController {
         success: true,
         count: allSchools.length,
         data: allSchools
-      });
+      });n
     });
   }
 

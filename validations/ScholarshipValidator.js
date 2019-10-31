@@ -29,7 +29,7 @@ class ScholarshipValidator {
     req.check('dueDate', 'dueDate is required').notEmpty().trim();
 
     req.check('amount', 'amount is required').notEmpty().trim()
-        .isNumeric().withMessage('amount must be a numeric');
+        //.isNumeric().withMessage('amount must be a numeric');
 
     req.check('state', 'state is required').notEmpty().trim();
 
