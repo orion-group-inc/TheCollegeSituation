@@ -30,16 +30,16 @@ class SchoolValidator {
     req.check('population', 'Population is required').notEmpty().trim()
         .isNumeric().withMessage('Population must be a number');
     req.check('avgTuitionInternational', 'avgTuitionInternational Field is required').notEmpty().trim()
-        .isNumeric().withMessage('avgTuitionInternational must be a number');
+        
     
     req.check('avgTuitionLocal', 'avgTuitionLocal is required').notEmpty().trim()
-        .isNumeric().withMessage('avgTuitionLocal must be a number');
+    
 
     req.check('graduationRate', 'graduationRate is required').notEmpty().trim()
-        .isNumeric().withMessage('graduationRate must be a number');
+       
 
     req.check('acceptanceRate', 'acceptanceRate is required').notEmpty().trim()
-        .isNumeric().withMessage('acceptanceRate must be a number');
+  
 
     req.check('generalPhone', 'generalPhone is required').notEmpty().trim()
     req.check('intlAdmissionPhone', 'intlAdmissionPhone is required').notEmpty().trim()
