@@ -1,7 +1,8 @@
 //Importing story category Model
 const Story = require("./../models/Story");
+const Student = require("./../models/Student");
 const StoryCategory = require("./../models/StoryCategory");
-const base = 'https://collegesituation.firebrains.xyz/';
+const base = "https://collegesituation.firebrains.xyz/";
 
 class StoryController {
   /**
@@ -15,9 +16,9 @@ class StoryController {
       .populate("owner")
       .then(allStories => {
         allStories = allStories.map((item, index) => {
-          item.photo = base+item.photo;
+          item.photo = base + item.photo;
           return item;
-        })
+        });
         res.status(200).send({
           success: true,
           data: allStories
@@ -33,15 +34,16 @@ class StoryController {
   static async getMyStories(req, res) {
     let id = req.body.userId;
     Story.find()
-      .populate('owner')
-      .populate('category')
-      .where('owner').equals(id)
-      
+      .populate("owner")
+      .populate("category")
+      .where("owner")
+      .equals(id)
+
       .then(allStories => {
         allStories = allStories.map((item, index) => {
-          item.photo = base+item.photo;
+          item.photo = base + item.photo;
           return item;
-        })
+        });
         res.status(200).send({
           success: true,
           data: allStories
@@ -65,7 +67,6 @@ class StoryController {
    * @apiParam {String} photo base64 string of image
    */
   static async createNewStory(req, res) {
-
     let story = new Story({
       title: req.body.title,
       photo: req.body.photo,
@@ -74,20 +75,23 @@ class StoryController {
       category: req.body.category,
       owner: req.body.userId
     });
-    try{
-      let storyCategory = await StoryCategory.findOne({_id: req.body.category});
+    try {
+      let storyCategory = await StoryCategory.findOne({
+        _id: req.body.category
+      });
       let newStory = await story.save();
       storyCategory.stories.push(newStory);
       await storyCategory.save();
-      newStory.photo = base+newStory.photo;
-      res.send({success: true, data: newStory})
-    }catch(err){
+      newStory.photo = base + newStory.photo;
+      let owner = await Student.findById(newStory.owner);
+      newStory.owner = owner
+      console.log(owner);
+      res.send({ success: true, data: newStory });
+    } catch (err) {
       res.status(400).send("Category does not exist", err.message);
     }
-    
   }
 
-  
   //getting single story with ID
   /**
    * @api {get} /story/getSingleStory/:id Get single story
@@ -100,7 +104,7 @@ class StoryController {
       .populate("category")
       .populate("owner")
       .then(singleStory => {
-        singleStory.photo = base+singleStory.photo;
+        singleStory.photo = base + singleStory.photo;
         res.status(200).send({
           success: true,
           data: singleStory
@@ -119,22 +123,23 @@ class StoryController {
    */
   static async deleteSingleStory(req, res) {
     let id = req.params.id;
-    try{
-      let story = await Story.findOne({_id: id});
-      if(story){
-        let storyCategory = await StoryCategory.findOne({_id: story.category});
+    try {
+      let story = await Story.findOne({ _id: id });
+      if (story) {
+        let storyCategory = await StoryCategory.findOne({
+          _id: story.category
+        });
         storyCategory.stories = storyCategory.stories.filter((item, index) => {
-            return item != id;
-        })
+          return item != id;
+        });
         await storyCategory.save();
         await story.delete();
       }
 
-      res.send({success: true, message: 'Deleted'})
-    }catch(err){
+      res.send({ success: true, message: "Deleted" });
+    } catch (err) {
       res.status(400).send("Could not delete story", err.message);
     }
-
   }
 }
 
