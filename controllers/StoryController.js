@@ -85,7 +85,7 @@ class StoryController {
       newStory.photo = base + newStory.photo;
       let owner = await Student.findById(newStory.owner);
       newStory.owner = owner
-      console.log(owner);
+      
       res.send({ success: true, data: newStory });
     } catch (err) {
       res.status(400).send("Category does not exist", err.message);
