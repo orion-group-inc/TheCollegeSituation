@@ -25,23 +25,7 @@ class ScholarshipValidator {
    */
   static validateScholarship(req, res, next) {
     let photo = null;
-    req.check('title', 'Title of house is required').notEmpty().trim();
-    req.check('dueDate', 'dueDate is required').notEmpty().trim();
-
-    req.check('amount', 'amount is required').notEmpty().trim()
-        //.isNumeric().withMessage('amount must be a numeric');
-
-    req.check('state', 'state is required').notEmpty().trim();
-
-    req.check('description', 'Descripton is required').notEmpty().trim(); 
-
-    req.check('link', 'link is required').notEmpty().trim()
-        .custom((url) => {
-            return /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(url);
-        }).withMessage('Link is invalid');
-
-    req.check('status', 'status is required').notEmpty().trim();
-    req.check('educationalLevel', 'educationLevel is required').notEmpty().trim();
+    
     req.check('photo', 'Scholarship Photo is required')
     .custom((value) => {
         if(!isBase64(value,{ mime: true })){
