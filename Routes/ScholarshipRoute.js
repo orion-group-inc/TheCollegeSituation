@@ -34,7 +34,7 @@ const {
 const {validateScholarship} = ScholarshipValidator;
 
 routes.get("/getAllScholarships", verifyToken, getAllScholarships);
-routes.post("/createScholarship", verifyToken, upload.single("photo"), validateScholarship, createScholarship);
+routes.post("/createScholarship", verifyToken, upload.single("photo"), createScholarship);
 routes.get("/getSingleScholarship/:id", verifyToken, getSingleScholarship);
 
 module.exports = routes;
