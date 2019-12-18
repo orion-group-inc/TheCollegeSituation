@@ -1,7 +1,7 @@
 //Importing School Model
 const School = require("./../models/School");
 const TempSchool = require("./../models/test/TempSchool");
-const base = 'https://collegesituation.firebrains.xyz/';
+const base = "https://collegesituation.firebrains.xyz/";
 
 class SchoolController {
   /**
@@ -10,17 +10,21 @@ class SchoolController {
    * @apiGroup School
    */
   static async getSchools(req, res) {
-    School.find().then(allSchools => {
-      allSchools = allSchools.map((item, index) => {
-        item.photo = base+item.photo;
-        return item;
+    School.find()
+      .then(allSchools => {
+        allSchools = allSchools.map((item, index) => {
+          item.photo = base + item.photo;
+          return item;
+        });
+        res.status(200).send({
+          success: true,
+          count: allSchools.length,
+          data: allSchools
+        });
+      })
+      .catch(err => {
+        console.log("an error occoured", err.message);
       });
-      res.status(200).send({
-        success: true,
-        count: allSchools.length,
-        data: allSchools
-      });
-    });
   }
 
   /**
@@ -158,9 +162,9 @@ class SchoolController {
       .save()
       .then(newSchool => {
         newSchool = newSchool.map((item, index) => {
-          item.photo = base+item.photo;
+          item.photo = base + item.photo;
           return item;
-        })
+        });
         res.status(200).send({ success: true, data: newSchool });
       })
       .catch(err => {
@@ -204,8 +208,8 @@ class SchoolController {
    * @apiGroup School
    */
   static async searchSchoolByName(req, res) {
-    let schoolName = req.body.schoolName
-    School.findOne({ name: schoolName})
+    let schoolName = req.body.schoolName;
+    School.findOne({ name: schoolName })
       .then(result => {
         res.status(200).send({
           success: true,
@@ -217,30 +221,26 @@ class SchoolController {
       });
   }
 
-
-
-//Endpoint to search for schools by city
+  //Endpoint to search for schools by city
 
   /**
-     * @api {get} /school/searchSchoolByCity Search for schools by city
-     * @apiName searchSchoolByCity
-     * @apiGroup School
-     */
+   * @api {get} /school/searchSchoolByCity Search for schools by city
+   * @apiName searchSchoolByCity
+   * @apiGroup School
+   */
   static async searchSchoolByCity(req, res) {
-    let cityName = req.body.cityName
+    let cityName = req.body.cityName;
     School.find({ city: cityName })
       .then(result => {
-       
-        if(result!=null){
+        if (result != null) {
           res.status(200).send({
             success: true,
             data: result
           });
-        }else{
+        } else {
           res.status(200).send({
             success: false,
             message: "School / city not found!"
-            
           });
         }
       })
@@ -248,14 +248,6 @@ class SchoolController {
         res.status(400).send("Schools / City not found", err.message);
       });
   }
-
-
-
-
-
-
-
-
 }
 
 module.exports = SchoolController;
