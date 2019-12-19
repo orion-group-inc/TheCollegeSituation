@@ -3,7 +3,7 @@ const Scholarship = require("./../models/Scholarship");
 
 class ScholarshipController {
   /**
-   * @api {get} /scholarship/allScholarships Get a list of scholarships
+   * @api {get} /scholarship/getAllScholarships Get a list of scholarships
    * @apiName GetScholarships
    * @apiGroup Scholarships
    */
