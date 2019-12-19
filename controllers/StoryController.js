@@ -21,7 +21,8 @@ class StoryController {
         });
         res.status(200).send({
           success: true,
-          data: allStories
+          data: allStories,
+          count: allStories.length
         });
       });
   }

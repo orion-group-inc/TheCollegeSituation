@@ -11,7 +11,8 @@ class ScholarshipController {
     Scholarship.find().then(allScholarships => {
       res.status(200).send({
         success: true,
-        data: allScholarships
+        data: allScholarships,
+        count: allScholarships.length
       });
     });
   }
@@ -23,7 +24,7 @@ class ScholarshipController {
    * @apiGroup Scholarships
    * @apiParam {String} title title of the scholarship
    * @apiParam {String} photo image of the scholarship
-   * @apiParam {String} dueDate 
+   * @apiParam {String} dueDate
    * @apiParam {Number} amount
    * @apiParam {String} state
    * @apiParam {String} status
